@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>new연산자와 생성자 함수</title>
+</head>
+<body>
+  <pre>
+    객체 리터럴 {}을 사용하면 객체를 쉽게 만들수 있다
+    그런데 개발을 하다보면 유사한 객체를 여러번 만들어야할떄가 있다
+    복수의 사용자, 메뉴 내 다양한 아이템을 객체로 표현하려고하는경우
+    new 연산자와 생성자 함수를 사용하면 유사한 객체 여러개를 쉽게 만들수 있다
+
+    **생성자 함수
+    생성자 함수와 일반 함수에 기술적인 차이는 없음
+    다만 생성자 함수는 아래 두 관례를 따른다
+    1.함수 이름의 첫 글자는 대문자로
+    2.반드시 new 연산자를 붙여 실행
+    예시
+    function User(name){
+      this.name = name;
+      this.isAdmin = false;
+    }
+    let user = new User("보람");
+    alert(user.name)
+    alert(user.isAdmin)
+    new User(...)를 써서 함수를 실행하면 아래와 같은 알고리즘이 동작
+    1.빈 객체를 만들어 this를 할당
+    2.함수 본문을 실행합니다 this.에 새로운 프로퍼티를 추가해 this를 수정
+    3.this를 반환
+    예시
+    function User(name){
+      //this = {}; (빈 객체가 암시적으로 만들어짐)
+      //새로운 프로퍼티를 this에 추가함 
+      this.name = name;
+      this.isAdmin = false;
+      //return this; (this가 암시적으로 반환됨)
+    }
+    이제 let user = new User("보라")는 아래 코드를 입력한 것과 동일하게 동작
+    let user = {
+      name : "보라",
+      isAdmin : false
+    }
+
+  </pre>
+  <script>
+    // function Ace(name){
+    //   this.name = name;
+    //   this.isAdmin = false;
+    // }
+    // let user = new Ace("보람");
+    // alert(user.name)
+    // alert(user.isAdmin)
+    // function User(name){
+    //   this.name = name;
+    //   this.isAdmin = false;
+    // }
+    // let user = new User("John");
+    // alert(user.name);
+    // alert(user.isAdmin);
+
+    // let user1 = new function(){ //익명함수
+    //   this.name = "John";
+    //   this.isAdmin = false;
+    // }
+    // alert(user1.name); 
+
+  </script>
+</body>
+</html>

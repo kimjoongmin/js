@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    **맵 처럼 보이는 객체 구현
+    set get delete; 3개 사용 기능 
+    stack queue사용
+    for of 사용 글자를 하나씩 뽑아서 아스키코드로 더해서 배열길이만큼 나누기
+    charCodeAt
+    다합쳐서 나머지로 구분
+    16개로 나누면 
+    아스키코드로 더해서 나머지 
+    겹치는건 아래로
+    일반적인 배열 개수는 16
+  </pre>
+  <script>
+
+    //과제
+    function Map(){
+      this.map = [];
+      // this.map.length = 10;
+    }
+    Map.prototype.set = function(word){
+      let arr=[];
+      let chars = [];
+      for(let i of word){
+        let num = i.charCodeAt();
+        chars.push(num);
+      }
+      // console.log(chars);
+      let value = chars.reduce((accumulator, currentNumber) => accumulator + currentNumber);
+      // console.log(value);
+      // value = parseInt(value%3);
+      // console.log(value); 
+      this.map[word] = value;
+    }
+    Map.prototype.get = function(word){
+      return this.map[word];
+    }
+    Map.prototype.delete = function(word){
+      delete this.map[word];
+    }
+    
+    let map = new Map();
+    map.set('aaa');
+    map.set('aab');
+    map.set('aac');
+    map.set('aad');
+    map.set('aae');
+    console.log(map);
+
+
+    //과제
+    // function Map(){
+    //   // this.map = new Object();
+    //   this.map = [];
+    // }
+    // let map = new Map();
+    // Map.prototype.set = function(key, value){
+    //   this.map[key] = value;
+    // }
+    // Map.prototype.get = function(key){
+    //   return this.map[key];
+    // }
+    // Map.prototype.delete = function(key){
+    //   delete this.map[key];
+    // }
+    
+    // function ascii(word){
+    //   let chars = [];
+    //   for(let i of word){
+    //     let num = i.charCodeAt();
+    //     chars.push(num);
+    //   }
+    //   //console.log(chars)
+    //   let sum = chars.reduce((accumulator, currentNumber) => accumulator + currentNumber);
+    //   // console.log(sum);
+    //   return sum;
+    //   // let value = parseInt(sum%3);
+    // }
+    // ascii('aaa');
+    // ascii('aab');
+    // ascii('aac');
+    // ascii('aad');
+    // ascii('aae');
+    // map.set('aaa',291);
+
+    
+  </script>
+</body>
+</html>

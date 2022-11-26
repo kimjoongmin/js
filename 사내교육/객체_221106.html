@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    빈객체 만드는방법
+    let user = {}; '객체 리터럴 문법'
+    let user = new Object(); '객체 생성자 문법'
+
+
+    **리터럴과 프로퍼티 
+    중괄호 안에는 '키:값' 쌍으로 구성된 프로퍼티가 들어갑니다
+    let user ={
+      name : 'John';
+      age : 30;
+    }
+
+    프로퍼티 값 얻기
+    console.log(user.name)
+    console.log(user.age)
+    프로퍼티 값엔 모든 자료형이 올 수 있습니다
+    불린형 프로퍼티를 추가해봅시다
+    user.isAdmin = true;
+    delete 연산자를 사용하면 프로퍼티 삭제
+    delete user.age;
+    여러 단어를 조합해 프로퍼티 이름을 만드는 경우
+    프로퍼티 이름을 따옴표로 묶어줘여 합니다
+    let user ={
+      name : 'John',
+      age : 30,
+      'likes birds' : true //복수의 단어는 따옴표로 묶어야 합니다
+    }
+    상수 객체는 수정될 수 있습니다
+    const user = {
+      name : 'John'
+    }
+    user.name = 'Pete';
+    console.log(user.name) //Pete 
+    const는 user 의 값을 고정하지만 그 내용은 고정하지 않습니다
+
+
+
+    **대괄호 표기법 
+    여러단어를 조합해 프로퍼티 키를 만든 경우엔 점 표기법을 사용해 프로퍼티 값을 읽을 수 없음
+    user.likes birds = true
+
+    let user = {};
+    user['likes birds'] = true;
+    console.log(user['likes birds']); // true
+    delete user['likes birds';]
+
+    대괄호 표기법을 사용하면 아래 예시에서 변수를 키로 사용한것과 같이 
+    문자열뿐만아니라 모든 표현식의 평가 결과를 프로퍼티 키로 사용 가능
+    let key = 'likes birds';
+    user[key] = true;
+    user['likes birds'] = true;
+
+    let user = {
+      name : 'John',
+      age : 30,
+    }
+    let key = prompt('사용자의 어떤 정보를 얻고 싶으신가요?',name);
+    console.log(user[key]);
+    점표기법은 이런 방식 불가능
+
+
+    **계산된 프로퍼티
+    객체를 만들때 객체 리터럴 안의 프로퍼티 키가 대괄호로 둘러싸여 있는경우
+    이를 계산된 프로퍼티 라고 합니다
+    let fruit = prompt('어떤과일을 구매하시겠습니까?','apple');
+    let bag = {
+      [fruit] : 5,//변수 fruit에서 프로퍼티 이름을 동적으로 받아옵니다
+    }
+    console.log(bag.fruit); //fruit에 'apple'이 할당 되었다면, 5가 출력
+
+    let fruit1 = prompt('어떤 과일을 구매하시겠습니까?','apple')
+    let bag1 = {};
+    bag1[fruit1] = 5;//변수 fruit을 사용해 프로퍼티 이름을 만듬
+
+    대괄호 안에는 복잡한 표현식이 올 수 있습니다
+    let fruit2 = 'apple';
+    let bag2 = {
+      [fruit + 'computer'] : 5 //bag.applecomputer = 5
+    };
+
+
+    **단축 프로퍼티
+    function makeUser (name, age) {
+      return {
+        name : name,
+        age : age
+      }
+    }
+    let user = makeuser('John',33)
+    console.log(user.name); // John
+    아래 예시는 단축 프로퍼티 
+    한 객체에서 일반 프로퍼티와 단축 프로퍼티 사용가능
+    function makeUser(name,age){
+      return {
+        name,
+        age
+      }
+    }
+
+
+    **프로퍼티 이름의 제약사항
+    제약없음
+    let obj = {
+      for:1,
+      let:2,
+      return:3
+    }
+    console.log(obj.for + obj.let + obj.+obj.return);
+
+    키에 숫자 0 을 넣으면 문자열 '0'으로 자동변환
+    let obj = {
+      0 : 'test';
+    }
+    console.log(obj['0']) //test
+    console.log(obj[0]) //test 
+
+    let obj = {};
+    obj.__proto__ = 5; //숫자를 할당합니다
+    alert(obj.__proto__); //[object,object] - 숫자를 할당했지만 값은 객체가 됨. 
+    원시갑 ㅅ5를 할당했는데 무시됨
+
+
+
+    **in 연산자로 프로퍼티 존재 여부 확인하기 
+    자바스크립트 객체의 중요한 특징중 하나는 다른 언어와는 달리 존재하지않는
+    프로퍼티에 접근하려해도 에러가 발생하지 않고
+    undefined를 반환. 
+    let user = {};
+    alert(user.noSuchProperty === undefined); //true는 프로퍼티가 존재하지 않음을 의미
+    이렇게 undefined와 비교하는 것 이외에도 연산자 in을 사용하면
+    프로퍼티 존재여부를 확인할수 있다. 
+    "key" in object 
+
+    let user = {
+      name:'John',
+      age: 30
+    }
+    console.log('age' in user); user.age가 존재하므로 true
+    console.log("blabla" in user);user.blabla는 존재하지않기때문에 false 
+    in 왼쪽엔 반드시 프로퍼티 이름이 와야합니다
+    프로퍼티 이름은 보통 따옴표로 감싼 문자열입니다
+
+
+    **for...in 반복문
+    for(key in object){
+
+    }
+    let user = {
+      name : 'John',
+      age : 30,
+      isAdmin : true
+    };
+    for(let key in user){
+      //키
+      alert(key) //name, age, isAdmin 
+      //키에 해당하는 값
+      alert(user[key])//John, 30, true
+    }    
+
+
+
+    **객체정렬방식
+    let codes = {
+      '49':'독일',
+      '41':'스위스',
+      '44':'영국',
+      '1':'미국',
+    }
+    for(let code in codes){
+      console.log(code) // 1,41,44,49
+    }
+    +사용하여 순차순
+
+
+
+
+
+  </pre>
+
+  <script>
+    let user = {
+      name : 'John'
+    }
+    let key = prompt('사용자의 어떤정보를 얻고 싶으신가요?','name');
+    console.log(user[key]); //변수로 접근
+
+    let fruit = prompt('어떤과일을 구매하시겠습니까?','apple');
+    let bag = {
+      [fruit] : 5,
+    }
+    console.log(bag);
+
+    let fruit1 = prompt('어떤과일을 구매하시겠습니까?','apple');
+    let bag1 = {};
+    bag1[fruit1] = 5;
+    console.log(bag1);
+
+    let fruit2 = 'apple';
+    let bag2 = {
+      [fruit2 + 'computers'] : 5  // applecomputers : 5
+    }
+
+    let obj = {
+      for:1,
+      let:2,
+      return:3
+    }
+    console.log(obj.for + obj.let + obj.return)//6
+
+    for(let key in user){
+      console.log(user.key);
+      console.log(user[key]);
+    }
+  </script>
+</body>
+</html>

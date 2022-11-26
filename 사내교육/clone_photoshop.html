@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .photoshop{
+      display: flex;
+    }
+    .photoshop>div>canvas{
+      border: 1px solid #ddd;
+      width:400px;
+      height:400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="photoshop">
+    <div>
+      <canvas id="canvas"></canvas>
+      <button id="undo">Undo</button>
+      <button id="redo">Redo</button>
+    </div>
+    <div></div>
+  </div>
+  <script>
+    //photoshop
+    const canvas = document.getElementById('canvas');
+    const undo = document.getElementById('undo');
+    const redo = document.getElementById('redo');
+
+    let ctx = canvas.getContext("2d");
+    let currentPath;
+    
+    canvas.width = 400;
+    canvas.height = 400;
+
+    function Stack() {
+        this.arr = [];
+        this.index = 0;
+    };
+    let stack = new Stack();
+    let restack = new Stack();
+    Stack.prototype.push = function(value){
+      this.arr[this.index++] = value;
+    }
+    Stack.prototype.pop = function(way){
+      if(0 < this.index){
+        let value = this.arr[--this.index]; //질문?--애매함
+        this.arr[this.index] = null;
+        return value;
+      } else {
+        throw Error(`고마해라 마이 ${way}`);
+      }
+    }
+
+    function Point(x, y){
+      this.x = x;
+      this.y = y;
+    }
+    function Path(sp, ep){
+      this.sp = sp;
+      this.ep = ep;
+    }
+    function drawPath(path){
+      ctx.beginPath();
+      ctx.moveTo(path.sp.x, path.sp.y);
+      ctx.lineTo(path.ep.x, path.ep.y);
+      ctx.stroke();
+    }
+    function drawStack(){
+      ctx.reset();
+      stack.arr.forEach((path)=>{
+        path && drawPath(path); //질문? 이해부족
+      });
+    }
+    canvas.onmousedown = (e) => {
+        currentPath = new Path(new Point(e.offsetX, e.offsetY));
+    };
+    canvas.onmouseup = (e) => {
+        currentPath.ep = new Point(e.offsetX, e.offsetY);
+        drawPath(currentPath);
+        stack.push(currentPath);
+    };
+
+    undo.onclick = (e) => {
+      console.log('지워')
+      restack.push(stack.pop('지웠다'));
+      drawStack();
+    };
+    redo.onclick = (e) => {
+      console.log('그려')
+      stack.push(restack.pop('그렸다'));
+      drawStack();
+    };
+  </script>
+</body>
+</html>

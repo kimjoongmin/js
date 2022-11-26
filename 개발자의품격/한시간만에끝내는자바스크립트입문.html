@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한시간만에끝내는자바스크립트입문</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container my-5 mx-auto" style="width:300px;">
+    <div class="py-3">이름   <input type="text" name="" id="name" class="form-control"></div> 
+    <div class="py-3">지역 
+      <select name="" id="city" class="form-select" onchange="changeCity()"> 
+        <!-- <option value="02" selected>서울</option>
+        <option value="064">제주</option> -->
+      </select>
+    </div>
+    <div>동네  
+      <select name="" id="region_02" class="form-select" > 
+        <option value="">강남</option>
+        <option value="">서초</option>
+      </select>
+      <select name="" id="region_031" class="form-select" style="display:none;"> 
+        <option value="">안양시</option>
+        <option value="">시흥시</option>
+      </select>
+    </div>
+    <select name="" id="region_064" class="form-select" style="display:none;"> 
+      <option value="">제주시</option>
+      <option value="">서귀포시</option>
+    </select>
+    <button type="button" class="btn btn-primary mx-auto my-2" onclick="regist()" style="width:100%;">등록</button>
+  </div>
+
+  <pre>
+    함수는 변수 선언으로부터 시작
+    var let const
+    데이터 타입
+
+    오브젝트 안에 다 담을수 있음
+    배열 순서가 있는 데이터 타입 안에 다 담을수 있음
+    조건문 반복문
+    함수기능
+
+
+  </pre>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script>
+    function regist (){
+      // console.log(document.getElementById('name').value);
+      alert($('#name').val());
+      // console.log(document.getElementById('city').value);
+      alert($('#city').val());
+
+      let obj = {};
+
+      obj.name = $("#name").val();
+      obj.city = $("#city").val();
+
+      printConsole(obj);
+    }
+    (function loadCity(){
+      let city = [
+        {
+          code:"02",
+          name:"서울"
+        },
+        {
+          code:"031",
+          name:"경기"
+        },
+        {
+          code:"064",
+          name:"제주"
+        },
+      ];
+      // $("#city").append('<option value="02" selected>서울</option>');
+      // $("#city").append('<option value="064" >제주</option>');
+      for(let i=0;i<city.length;i++){
+        if(i==0){
+          $("#city").append('<option value="'+ city[i].code +'" selected>'+ city[i].name +'</option>');
+        }else{
+          $("#city").append('<option value="'+ city[i].code +'">'+ city[i].name +'</option>');
+        }
+      }
+    }());
+
+    function printConsole(data){
+      console.log(data);
+    };
+    function changeCity(){
+      // let city = document.getElementById('city').value;
+      // document.getElementById('region_02').style.display = "none";
+      // document.getElementById('region_064').style.display = "none";
+      // document.getElementById('region_' + city).style.display = "block";
+
+      let city = $('#city').val();
+      $('#region_02, #region_031, #region_064').hide();
+      $('#region_' + city).show();
+    }
+  </script>
+</body>
+</html>

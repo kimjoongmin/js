@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체</title>
+</head>
+<body>
+    <pre>
+        자료형 챕터에서 배웠듯 자바스크립트에는 8가지 자료형이 있다 
+        1.숫자형
+        2.문자형
+        3.불린형
+        4.null
+        5.undefined
+        6.bigInt
+        7.객체형
+        8.심볼형
+        그중 7개는 오직 하나의 데어타만 담을 수 있는 원시형
+        객체형은 원시형과 달리 다양한 데이터를 담을수 있음
+        키로 구분된 데이터 집합이나 복잡한 개체를 저장.
+        객체는 자바스크립트 거의 모든면에 녹아있는 개념이므로 자바스크립트를 잘 다루려면 객체를 잘 이해해야함
+        객체는 중괄호를 이용해 만들수 있음
+        중괄호 안에는 키(key) : 값(value) 쌍으로 구성된 프로퍼티를 여러개 넣을 수 있음
+        키 엔 문자형 값엔 모든 자료형 허용.
+        프로퍼티 키는 프로퍼티 이름 이라고도 부른다
+        서랍장을 상상하면 객체를 이해하기 쉬움
+        서럽장 안 파일은 프로퍼티, 
+        파일 각각에 붙어있는 이름표는 객체의 키라고 생각하면된다
+        복잡한 서랍장 안에서 이름표를 보고 원하는 파일을 쉽게 찾을수 있듯이 
+        객체에선 키를 이용해 프로퍼티를 쉽게 찾음
+        추가나 삭제도 마찬가지
+        
+        //빈 객체를 만드는 방법은 두가지
+        let user = new Object(); //객체 생성자 문법
+        let user = {}//객체 리터럴 문법
+
+        중괄호를 이용해 객체를 선언하는 것을 객체 리터럴 이라고 부름
+        객체를 선언할땐 주로 이 방법을 사용.
+
+
+        리터럴과 프로퍼티
+        중괄호 안에는 '키:값'쌍으로 구성된 프로퍼티가 들어감
+
+        let user = {
+            name : "John",
+            age : 41
+        };
+        콜론을 기준으로 왼쪽엔 키가 오른쪽엔 값이 위치
+        프로퍼티 키는 프로퍼티 이름 혹은 식별자라고 함
+
+        객체 user에는 프로퍼티가 두개 있음
+        1.첫번째 프로퍼티 - "name"이름과 "john"값
+        2.두번쨰 프로퍼티 - "age"이름과 41 값
+
+        서랍장(객체) 안에 파일 두개(프로퍼티 두개)가 담겨있는데 각파일에
+        name, age라는 이름표가 붙어있다고 생각하면됨
+        서랍장에 파일을 추가하고 뺄 수 있듯이 개발자는 프로퍼티를 추가, 삭제 가능
+        점 표기법(dot notation)을 이용하면 프로퍼티 값을 읽는 것도 가능
+
+        //프로퍼티 값 열기
+        alert(user.name); //john
+        alert(user.age); //41
+
+        프로퍼티 값엔 모든 자료형이 올수 있음
+        불린형 프로퍼티를 추가해봅시다
+        user.isAdmin = true;
+
+        delete연산자를 사용하면 프로퍼티를 삭제
+        delete user.age;
+
+        여러단어를 조합해 프로퍼티 이름을 만드는 경우엔 프로퍼티 이름을 따옴표로 묶어야함
+        let user = {
+            name : "john",
+            age : 41,
+            "likes birds" : true //복수의 단어는 따옴표로 묶어야 함
+        }
+
+        마지막 프로퍼티 끝은 쉼표로 끝날 수 있음
+        let user = {
+            name : "john",
+            age : 41,
+        }
+
+        이런 쉼표를 길게늘어지는(trailing) 혹은 매달리는(hanging) 쉼표라고 부름
+        이렇게 끝에 쉼표를 붙이면 모든 프로퍼티가 유사한 형태를 보이기때문에
+        프로퍼티를 추가,삭제, 이동하는게 쉬움
+
+        const로 선언된 객체는 수정될 수 있음
+        const user = {
+            name : "john",
+        };
+        user.name = "pete";
+        alert(user.name);
+        const는 user의 값을 고정하지만, 그 내용까지 고정하지는 않음
+
+
+        대괄호 표기법
+        여러 단어를 조합해 프로퍼티 키를 만든 경우엔 점표기법을 사용해 프로퍼티 값을 읽은수 없음
+        //문법에러발생
+        user.likes birds = true
+        자바스크립트는 위와 같은 코드를 이해못함
+        user.likes까지는 이해하다가 예상치 못한 false를 만나면 문법에러를 뱉어 냅니다
+
+        점은 키가 유효한 변수 식별자인 경우만 사용 가능
+        유효한 변수 식별자엔 공백이 없어야함 
+        또한 숫자로 시작하면 안되고 $와 _외에는 특수문자가 없어야함
+        키가 유효한 변수 식별자가 아닌 경우엔 점표기법 대신에 대괄호 표기법이라 불리는 방법 사용
+        대괄호 표기법은 키에 어떤 문자열이 있던지 상관없이 동작
+
+        let user = {};
+        user.["likes birds"] = true; // set
+        alert(user.["likes birds"]); // get     true
+        delete user.["likes birds"]; // delete
+
+        대괄호 표기법 안에서 문자열을 사용할땐 문자열을 따옴표로 묶어줘야한다는 점
+        대괄호 표기법을 사용하려면 아래 예시에서 변수를 키로 사용한것과 같이 
+        문자열뿐아니라 모든 표현식의 평가결과를 프로퍼티 키로 사용할 수 있음
+
+        let key = "likes flower";
+
+        user[key] = true;
+
+        변수 key는 런타임에 평가되기 때문에 사용자 입력 값 변경 등에 따라 값이 변경될 수 있다
+        어떤 경우든 평가가 끝난 이후의 결과가 프로퍼티 키로 사용됩니다.
+        이를 응용하면 코드를 유연하게 작성가능
+        let user = {
+            name : "John",
+            age : 41
+        };
+        let key = prompt("사용자의 어떤 정보를 얻고 싶으신가요?", "name");
+
+        alert(user[key]); //John (프롬프트창에 "name"을 입력한 경우)
+
+        그런데 점 표기법은 이런 방식이 불가능
+        let user = {
+            name : "John",
+            age : 41
+        };
+        let key = "name";
+        alert(user.key); //undefined
+
+
+        *계산된 프로퍼티
+        객체를 만들떄 객체 리터럴 안의 프로퍼티 키가 대괄호로 둘러싸여 있는 경우
+        계산된 프로퍼티라고 부름
+        let fruit = prompt("어떤 과일을 구매하시겠습니까?","apple");
+        let bag = {
+            [fruit] : 5, //변수 fruit에서 프로퍼티 이름을 동적으로 받아옵니다.
+        };
+        alert(bag.apple);
+        위 예시에서 [fruit]는 프로퍼티 이름을 변수 fruit에서 가져오겠다는 의미
+        사용자가 프롬프트 창에 apple을 입력했다면 bag 엔 {apple:5}가 할당
+        아래는 위와 동일한 예시
+        let fruit = prompt("어떤 과일을 구매하시겠습니까?","apple");
+        let bag = {};
+        bag[fruit] = 5;
+
+        let fruit = "apple";
+        let bag = {
+            [fruit + "Computer"] : 5, // apple Computers : 5
+        };
+
+        대괄호 표기법은 프로퍼티 이름과 값의 제약을 없애주기 떄문에 점 표기법보다 강력
+        작성이 번거로운 단점
+        그래서 프로퍼티 이름이 확정되고 단순한 이름이면 점표기법
+        복잡한 상황엔 대괄호 표기법
+
+        *단축 프로퍼티 
+        function makeUser (name, age) {
+            return {
+                name : name,
+                age : age 
+            }
+        }
+        let user = makeUser("John", age);
+        alert(user.name); //John
+        위 예시를 프로퍼티 값 단축 구문
+        function makeUser (name, age) {
+            return {
+                name,
+                age,
+            }
+        }
+
+
+        *프로퍼티 이름의 제약사항
+        변수 이름(키)엔 for let return 같은 예약어 사용금지
+        객체 프로퍼티엔 이런 제약이 없음
+        let obj = {
+            for : 1,
+            let : 2,
+            return : 3
+        };
+        alert(obj.for + obj.let + obj.return); //6
+
+
+        *in 연산자로 프로퍼티 존재 여부 확인하기
+        let user = {};
+        alert(user.noSuchProperty === undefined ); //true
+
+        문법 : "key" in object
+
+        예시
+        let user = {
+            name : "John",
+            age : 30
+        }
+        alert("name" in user)
+
+
+
+
+
+
+
+
+
+        
+    </pre>
+    <script>
+        //*************과제
+        //1
+        // let user = {};
+        // user.name = "John",
+        // user.surname = "Smith",
+        // user.name = "pete";
+        // delete user.name;
+
+        //2
+        // let schedule = {};
+        // alert(isEmpty(schedule)); //true
+        // schedule["8:30"] = "get up";
+        // alert(isEmpty(schedule)); // flase
+
+        // function isEmpty(obj){
+        //     for(let key in obj) {
+        //         return false;
+        //     }
+        //     return true;
+        // }
+
+        //3
+        //담을수 있음 변수안 프로퍼티는 가능
+
+        //4
+        // let salaries = {
+        //     John: 100,
+        //     Ann: 160,
+        //     Pete: 130
+        // }
+        // //alert(salaries.John + salaries.Ann + salaries.Pete)
+        // let sum = 0;
+        // for (let key in salaries){
+        //     sum += salaries[key];
+        // }
+        // alert(sum);
+         
+        //5
+        // let menu = {
+        //         width: 200,
+        //         height: 300,
+        //         title: "My menu"
+        //     };
+        // // function multiplynumberic(menu){
+        // //     if( 프로퍼티 값이 숫자 일때 typeof menu[key] == "number"){
+        // //         값 * 2 menu[key] *= 2;
+        // //     }
+        // // }
+        // function multiplyNumeric(obj) {
+        //     for (let key in obj) {
+        //         if (typeof obj[key] == 'number') {
+        //         obj[key] *= 2;
+        //         }
+        //     }
+        // }
+        // multiplyNumeric(menu);
+        // console.log(menu.width);
+        // console.log(menu.height);
+        // console.log(menu.title);
+
+
+//         let user = {
+//   name: "John",
+//   age: 30,
+//   isAdmin: true
+// };
+
+// for (let key in user) {
+//   // 키
+//   //alert( key );  // name, age, isAdmin
+//   // 키에 해당하는 값
+//   alert( user[key] ); // John, 30, true
+// }
+
+
+        // let user = {
+        //     name : "John",
+        //     age : 30
+        // }
+
+        // alert("name" in user)
+
+
+        // function makeUser (name, age) {
+        //     return {
+        //         name : name, 
+        //         age : age 
+        //     }
+        // }
+        // let user = makeUser("John", 30);
+        // alert(user.name); //John
+        // //alert(user["name"]); //John
+
+
+
+        // let fruit = prompt("어떤 과일을 구매하시겠습니까?","apple");
+        // let bag = {};
+        // bag[fruit] = 5;
+        // alert(bag.apple);
+
+
+        // let fruit = prompt("어떤 과일을 구매하시겠습니까?","apple");
+        // let bag = {
+        //     [fruit] : 5, //변수 fruit에서 프로퍼티 이름을 동적으로 받아옵니다.
+        // };
+        // alert(bag.apple);
+
+
+        // let user = {
+        //     name : "John",
+        //     age : 41
+        // };
+        // let key = prompt("사용자의 어떤 정보를 얻고 싶으신가요?", "name");
+        // alert(user[key]);
+
+
+        // let user = {
+        //     name : "John",
+        //     age : 41
+        // };
+        // let key = "name";
+        // alert(user.key); //undefined
+
+
+        // let user = {
+        //     name: "John",
+        //     age: 30,
+        //     isAdmin: true
+        // };
+
+        // for (let key in user) {
+        // // 키
+        // alert( key );  // name, age, isAdmin
+        // // 키에 해당하는 값
+        // alert( user[key] ); // John, 30, true
+        // }
+         
+        
+    </script>
+</body>
+</html>

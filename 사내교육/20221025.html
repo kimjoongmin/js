@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20221025</title>
+</head>
+<body>
+  <pre>
+    ***new 연산자와 생성자 함수
+
+    ***옵셔널 체이닝 '?.'
+    f && ff();
+    f?.();
+
+    ***심볼형
+
+    ***객체를 원시형으로 변환하기
+
+  </pre>
+  <script>
+    //내꺼
+    // let a = {
+    //   next : 'b',
+    //   prev : undefined,
+    //   next(){
+    //     this.next
+    //   },
+    //   prev(){
+
+    //   }
+    // }
+    // let b = {
+    //   next : 'c',
+    //   prev : 'a',
+    //   next(){
+        
+    //   },
+    //   prev(){
+        
+    //   }
+    // }
+    // let c = {
+    //   next : 'd',
+    //   prev : 'b',
+    //   next(){
+        
+    //   },
+    //   prev(){
+        
+    //   }
+    // }
+
+
+
+    //답
+    // let a ={
+    //   name : 'a',
+    //   prev : undefined,
+    //   next : undefined
+    // }
+    // let b ={
+    //   name : 'b',
+    //   prev : undefined,
+    //   next : undefined
+    // }
+    // let c ={
+    //   name : 'c',
+    //   prev : undefined,
+    //   next : undefined
+    // }
+
+    // a.next = b;
+    // b.next = c;
+    // b.prev = a;
+    // c.prev = b;
+
+    // let n = undefined;
+    // for(n=a;;n=n.next()){
+    //   console.log(n.name)
+    //   if(n.next === undefined) break;
+    // } // 링크드리스트 구조
+
+    
+    //new연산자
+    //생성자함수
+    // function Node(name){
+      
+    //   this.name = name;
+    //   this.next = null;
+    //   this.prev = null;
+      
+    //   //console.log(this.name, this.prev, this.next)
+    // }
+
+    // let a = new Node('a');
+    // let b = new Node('b');
+    // let c = new Node('c');
+
+    // a.next = b;
+    // b.next = c;
+    // b.prev = a;
+    // c.prev = b;
+
+    // let n = undefined;
+
+    // for(n=a;;n=n.next()){
+    //   console.log(n.name)
+    //   if(n.next === undefined) break;
+    // } // 링크드리스트 구조
+
+
+    
+    //생성자함수
+    // function Node(name){
+    //   if(!new.target){
+    //     return new Node(name);
+    //   }
+    //   this.name = name;
+    //   this.prevNode = undefined;
+    //   this.nextNode = undefined;
+
+    //   //추가기능
+    //   this.isHead = function(){
+    //     // if(이전이 없고 다음이 있으면)
+    //     if(this.prevNode===undefined && this.nextNode !== undefined){
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //     // return (!this.prevNode && this.nexNode) ? true :false
+    //     // return (!this.prevNode && this.nexNode);
+    //   }
+    //   this.isTail = function(){
+    //     // if(다음이 없고 이전이 있으면)
+    //     return (!this.nexNode && this.prevNode);
+    //   }
+
+    //   this.prev = function(){
+    //     return this.prevNode;
+    //   }
+    //   this.next = function(){
+    //     if(this.isTail()){
+    //       console.log('tail')
+    //     }
+    //     console.log(this.name)
+    //     return this.nextNode;
+    //   }
+    // }
+    
+    // let a = new Node('a');
+    // let b = new Node('b');
+    // let c = new Node('c');
+
+    // a.next = b;
+    // b.next = c;
+    // b.prev = a;
+    // c.prev = b;
+    
+    // let n = undefined;
+    // for(n=a;;n=n.next()) {
+    //   console.log(n.name);
+    //   if(n.isTail()) break;
+    // } // 링크드리스트 구조
+
+
+
+    //최종1
+    // function Node(name) {
+    //       if(!new.target) {
+    //           return new Node(name);
+    //       }
+
+    //       this.name = name;
+    //       this.prevNode = undefined;
+    //       this.nextNode = undefined;
+
+    //       this.isHead = function() {
+    //           return Boolean(!this.prevNode && this.nextNode);
+    //       }
+
+    //       this.isTail = function() {
+    //           return Boolean(!this.nextNode && this.prevNode);
+    //       }
+
+    //       this.prev = function() {
+    //           return this.prevNode;
+    //       };
+
+    //       this.next = function() {
+    //           return this.nextNode;
+    //       };
+    //   }
+
+    //   let a = new Node('a');
+    //   let b = new Node('b');
+    //   let c = new Node('c');
+
+    //   a.nextNode = b;
+    //   b.nextNode = c;
+    //   b.prevNode = a;
+    //   c.prevNode = b;
+
+    //   let n=undefined;
+
+    //   for(n=a;;n=n.next()) {
+    //       console.log(n.name);
+    //       if(n.isTail()) break;
+    //   }
+
+
+
+    //최종2(소스낭비 막기)
+    //this를 함수.prototype 으로
+    // function Node(name) {
+    //       if(!new.target) {
+    //           return new Node(name);
+    //       }
+
+    //       this.name = name;
+    //       this.prevNode = undefined;
+    //       this.nextNode = undefined;
+    //   }
+
+    //   Node.prototype.prev = function() {
+    //       return this.prevNode;
+    //   };
+
+    //   Node.prototype.next = function() {
+    //       return this.nextNode;
+    //   };
+
+    //   Node.prototype.isHead = function() {
+    //       return Boolean(!this.prevNode && this.nextNode);
+    //   }
+
+    //   Node.prototype.isTail = function() {
+    //       return Boolean(!this.nextNode && this.prevNode);
+    //   }
+
+    //   let a = new Node('a');
+    //   let b = new Node('b');
+    //   let c = new Node('c');
+
+    //   a.nextNode = b;
+    //   b.nextNode = c;
+    //   b.prevNode = a;
+    //   c.prevNode = b;
+
+    //   let n=undefined;
+
+    //   for(n=a;;n=n.next()) {
+    //       console.log(n.name);
+    //       if(n.isTail()) break;
+    //   }
+
+
+
+
+
+     //심볼 사용법 
+     function Node(name) {
+          if(!new.target) {
+              return new Node(name);
+          }
+
+          let sb = Symbol('name');
+          this[sb] = name;
+
+          this.getName = function() {
+              return this[sb];
+          };
+
+          this.setName = function(name) {
+              if(name.startsWith('s')) {
+                  this[sb] = name;
+              } else {
+                  throw Error('안되는 이름');
+              }
+          }
+          this.prevNode = undefined;
+          this.nextNode = undefined;
+      }
+
+      Node.prototype.prev = function() {
+          return this.prevNode;
+      };
+
+      Node.prototype.next = function() {
+          return this.nextNode;
+      };
+
+      Node.prototype.isHead = function() {
+          return Boolean(!this.prevNode && this.nextNode);
+      }
+
+      Node.prototype.isTail = function() {
+          return Boolean(!this.nextNode && this.prevNode);
+      }
+
+      let a = new Node('a');
+      let b = new Node('b');
+      let c = new Node('c');
+
+      a.nextNode = b;
+      b.nextNode = c;
+      b.prevNode = a;
+      c.prevNode = b;
+
+      let n=undefined;
+
+      for(n=a;;n=n.next()) {
+          console.log(n.name);
+          if(n.isTail()) break;
+      }
+
+      
+  </script>
+</body>
+</html>

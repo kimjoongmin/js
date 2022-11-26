@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재귀 스택</title>
+</head>
+<body>
+  
+  <script>
+    // 과제 : 팀별 합계를 구해오세요. 
+        let team = {
+            name: '인재inc',
+            users: [
+                {
+                    user: '대표님',
+                    amount: 10000,
+                }
+            ],
+            teams: [
+                {
+                    name: '기술지원실',
+                    users: [
+                        {
+                            user: '강희성',
+                            amount: 10000,
+                        }
+                    ],
+                    teams: [
+                        {
+                            name: 'UI개발팀',
+                            users: [
+                                {
+                                    user: '강희성',
+                                    amount: 10000,
+                                },
+                                {
+                                    user: '강희성',
+                                    amount: 10000,
+                                }
+                            ],
+                            teams: [
+
+                            ]
+                        },
+                        {
+                            name: '기술지원팀',
+                            users: [
+                                {
+                                    user: '강희성',
+                                    amount: 10000,
+                                }
+                            ],
+                            teams: [
+
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+
+
+        function sumSalaries(department) {
+  if (Array.isArray(department)) { // 첫 번째 경우
+    return department.reduce((prev, current) => prev + current.amount, 0); // 배열의 요소를 합함
+  } else { // 두 번째 경우
+    let sum = 0;
+    for (let depth of Object.values(department)) {
+      sum += sumSalaries(depth); // 재귀 호출로 각 하위 부서 임직원의 급여 총합을 구함
+    }
+    return sum;
+  }
+}
+
+alert(sumSalaries(team)); // 7700
+
+        
+        // Object.prototype.forEach = function(callback) {
+        //     for(let key of Object.keys(this)){
+        //         callback(this[key], key, this);
+        //     }
+        // }
+
+        // function printObject(parent) {
+        //     if(Array.isArray(parent)) {
+                // parent.forEach(e=>printObject(e, depth));
+                // return parent.reduce((prev, current) => prev + current.amount, 0);
+                // let sum = 0;
+                // for (let depth of Object.values(parent)) {
+                //     sum += printObject(depth); // 재귀 호출로 각 하위 부서 임직원의 급여 총합을 구함
+                // }
+                // return sum;
+            // } else if (typeof parent === 'object') {
+                // parent.forEach(e=>printObject(e, depth));
+                // return parent.reduce((prev, current) => prev + current.amount, 0);
+                // let sum = 0;
+                // for (let depth of Object.values(parent)) {
+                //     sum += printObject(depth); // 재귀 호출로 각 하위 부서 임직원의 급여 총합을 구함
+                // }
+                // return sum;
+            // } else {
+            //     let sum = 0;
+            //     for (let subdep of Object.values(department)) {
+            //         sum += printObject(subdep); // 재귀 호출로 각 하위 부서 임직원의 급여 총합을 구함
+            //     }
+            //     return sum;
+                    // console.log(team.users[0].amount);
+                    // if(isNaN(parent) == false){
+                    //     console.log(parent);
+                    
+                    // const result = parent.map(item => item.amount).reduce((prev, curr) => prev + curr, 0);
+                    // console.log(result);
+                // }
+                
+        //     }
+        // }
+        // printObject(team, 0);
+
+  </script>
+</body>
+</html>

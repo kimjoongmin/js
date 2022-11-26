@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    반복가능한(이터러블~)객체는 배열을 일반화한 객체
+    이터러블이라는 개념을 사용하면 어떤 개체에든 for ...of 반복문 적용
+
+  </pre>
+
+  <script>
+    // let range = {
+    //   from : 1,
+    //   to : 5,
+    //   [Symbol.iterator](){
+    //     this.current = this.from;
+    //     return this;
+    //   },
+    //   next(){
+    //     if(this.current <= this.to){
+    //       return {done: false, value: this.current++};
+    //     } else {
+    //       return {done: true};
+    //     }
+    //   }
+    // };
+    // for(let num of range){
+    //   console.log(num)
+    // }//1, 2, 3, 4, 5
+
+    // let test = 'test javascript';
+    // let regex  = / /gi; //사이 공백제거
+    // //console.log(test.replace(regex,''))
+    // for (let char of test.replace(regex,'')){
+    //   console.log(char)
+    // }//t, e, s, t
+    const arrayLike = {
+      0: 1,
+      1: 2,
+      2: 3,
+      length: 2
+    };
+
+    console.log(Array.from(arrayLike).pop());
+  </script>
+</body>
+</html>

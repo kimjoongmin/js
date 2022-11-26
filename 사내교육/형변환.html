@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>형변환</title>
+</head>
+<body>
+  <pre>
+
+    **형변환
+    함수와 연산자에 전달되는 값은 대부분 적절한 자료형으로 자동 변환됩니다
+    이런과정을 형변환
+    alert가 전달받은 값의 자료형과 관계없이 이를 문자열로 자동변환하여 보여주는 것이나 수학 관련 연산자가
+    전달받은 값을 숫자로 변환하는 경우가 형변환의 대표적 예시
+    문자형
+    불린형
+    숫자형
+    객체형
+    심볼형
+    null 
+    undefined
+    bigInt
+
+
+    **문자형으로 변환
+    문자형으로의 형변환은 문자형의 값이 필요할떄 일어남
+    alert 메서드는 매개변수로 문자형을 받기 때문에 
+    alert(value) 에서 value는 문자형이어야함
+    만약 다른 형의 값을 전달받으면 이값은 문자형으로 자동변환
+
+    let value = true;
+    alert(typeof value); // boolean
+    value = String(value); 
+    alert(typeof value) // String
+
+    false 는 문자열 "false"로 null 은 문자열 "null"로 변환되는것과 같이 
+    문자형으로의 변환은 대부분 예측 가능한 방식으로일어남
+
+
+    **숫자형으로변환
+    숫자형으로의 변환은 수학과 관련된 함수와 표현식에서 자동으로 일어남
+    숫자형이 아닌값에 나누기 /를 적용한 경우와 같이말이죠
+
+    alert("6" / "2"); //3 문자열이 숫자형으로 자동변환된 후 연산 수행
+
+    Number(value) 함수를 사용하면 주어진 값(value)을 숫자형으로 명시해서 변환할수 있음
+
+    let str = "123";
+    alert(typeof str); // string 
+    let num = Number(str);
+    alert(typeof num); // number
+
+    숫자형 값을 사용해 문언가를 하려고하는데
+    그 값을 문자기반 폼을 통해 입력받는경우 이런 명시적 형변환이 필수
+
+    한편 숫자 이외의 글자가 들어가 있는 문자열을 숫자형으로 변환하려고하면
+    그결과는 NaN이 됩니다
+
+    let age = Number("임의의 문자열 123");
+    alert(age); // NaN 형변환 실패
+
+    숫자형으로 변환시 적용되는 규칙
+    undefined = NaN
+    null = 0 
+    true, false = 1과 0;
+    string = 
+    문자열의 양끝의 공백 제거
+    그 후 남아있는 문자열이 없으면 0
+    그렇지 않다면 문자열에서 숫자 읽음
+    변환 실패하면 NaN
+    
+    alert(Number("   123   ")) //공백제거 후 숫자
+    alert(Number("123z")) // NaN
+    alert(Number(true)) //1
+    alert(Number(false)) //0
+
+    null은 0
+    undefined 는 NaN
+
+
+    **불린형으로 변환
+    이 형변환은 논리 연산을 수행할떄 발생
+    Boolean (value) 를 호출하면 명시적으로 불리언으로의 형 변환을 수행하수 있음
+
+    숫자0, 빈 문자열, null, undefined, NaN과 같이 직관적으로 비어있다 느껴지는 값은 false
+    그 외의 값을 true로 변환
+
+    alert(Boolean(1)) //true
+    alert(Boolean(0)) //false
+    alert(Boolean("hello")) //1 = ture
+    alert(Boolean("")) //0 = false
+
+    단 문자열 "0"은 true!
+    비어있지 않은 문자열은 언제나 true;
+
+    
+  </pre>
+
+  <script>
+    let value = true;
+    alert(typeof value); // boolean
+    value = String(value); 
+    alert(typeof value) // String
+
+    let a = "6" / "2" //문자열이 숫자형으로
+    alert(a); // 계산되서 3
+    alert(typeof a); // 확인하면 숫자형임
+
+    let str = "123";
+    alert(typeof str); // string 
+    let num = Number(str);
+    alert(typeof num); // number
+
+
+
+
+  </script>
+
+</body>
+</html>

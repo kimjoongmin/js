@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기본 연산자와 수학</title>
+</head>
+<body>
+  <pre>
+
+    **용어:'단항','이항','피연산자'
+    피연산자는 연산자가 연산을 수행하는 대상
+    5 * 2에는 왼쪽 피연산자 5와 오른쪽 피연산자 2
+    총 두개의 피연산자가 있음
+    피연산자는 인수(argument)로 불림
+
+    피연산자를 하나만 받는 연산자는 단항 연산자
+    피연산자의 부호를 뒤집는 단항 마이너스 연ㅅ나자 -는 단항 연산자의대표적인예
+
+    let x = 1;
+    x = -1;
+    alert(x); // -1 단항 마이너스 연산자는 부호를 뒤집습니다
+
+    두개의 피연산자를 받는 연산자는 이항 연산자라 부름
+    let x = 1;
+    let y = 3;
+    alert( y - x); //2 이항 마이너스 연산자는 뺄셈
+
+
+    **수학
+    + , - , * , / , % ,**
+
+    나머지 연산자 %
+    alert( 5 % 2) // 1
+    alert( 8 % 3 ) //2
+
+    거듭제곱연산자 **
+    alert( a ** b ) 
+    alert( 2 ** 4 ) // 16
+    1/2사용하면 제곱근
+    alert( 8 ** (1/3)) 2 (1/3 거듭제곱은 세제곱근)
+
+
+    **이항 연산자 + 와 문자열 연결
+    연산자 + 의 피연산자로 문자열이 전달되면 문자열 병함
+    let s = "my" + "string";
+    alert(s); // mystring
+
+    alert("1" + 2) // 문자열 "12"
+    alert(2 + "1") // "21"
+    피연산자중 어느하나가 문자열이면 다른하나도 문자열
+
+    let num = 2 + 2 + "1";
+    alert( 2 + 2 + "1"); // 41
+    alert(typeof num)//"41"
+    
+    alert(6 - "2") // 4 
+    alert("6" / "2")// 3
+    
+
+
+  </pre>
+  <script>
+
+    let num = 2 + 2 + "1";
+    alert( 2 + 2 + "1"); // "41"
+    alert(typeof num)// "41" string
+  </script>
+</body>
+</html>

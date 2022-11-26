@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    let result = [];
+    function sum(team, depth){
+      let teamAmount = {
+        name : team.name,
+        total :0,
+        all:0,
+        depth : depth
+      }
+      result.push(teamAmount)
+      console.log(team, teamAmount)
+
+      team.users.forEach(e=>{
+        teamAmount.total += e.amount
+      })
+      team.teams.forEach(e=>{
+        teamAmount.all += sum(team,depth+1)
+      })
+      teamAmount.all += teamAmount.total;
+
+      return teamAmount.all;
+      <!-- console.log(team, teamAmount) -->
+    }
+
+
+    sum(team, 0)
+
+
+
+
+
+
+
+
+    스프레드문법
+
+    rest문법
+
+
+
+
+    함수를 반환하는 함수
+
+    function user(name, pass){
+      this.name=name;
+      this.pass=pass; 
+
+    }
+    let user = new User('a','pppp')
+    user
+    function user(name, pass){
+      this.name=name;
+      this.getPass = ()=> pass;
+      this.setPass = ()=> {pass=p}
+    }
+    let user = new User('a','pppp')
+    user
+    user.setPass('qqqq')
+    user.getPass('qqqq')
+    user
+    
+
+
+    즉시실행함수
+
+
+
+
+
+
+
+  </pre>
+
+
+  
+
+
+  <script>
+    //급여합
+    // function sum(team, parent, depth) {
+    //   let teamAmount = {
+    //       name: team.name,
+    //       parent: parent,
+    //       total: 0,
+    //       all: 0,
+    //       depth
+    //   };
+
+    //   result.push(teamAmount);
+
+    //   team.users.forEach(user=>teamAmount.total += user.amount);
+    //   team.teams.forEach(team=>teamAmount.all += sum(team, teamAmount.name, depth+1));
+
+    //   teamAmount.all += teamAmount.total;
+
+    //   return teamAmount.all;
+    // }
+
+    // sum(team, '', 0);
+
+
+
+
+   //클로저
+   (function() {
+      var buttons = document.getElementsByTagName('button');
+      
+      //버튼 클릭시 버튼의 번홷로 안나옴
+      for(var i=0;i<buttons.length;++i) {
+          buttons[i].addEventListener('click', () => {
+              alert(`${i + 1} button`);
+          });
+      }
+
+      //let으로 해결
+      for(let i=0;i<buttons.length;++i) {
+          buttons[i].addEventListener('click', () => {
+              alert(`${i + 1} button`);
+          });
+      }
+
+      //function 으로 해결
+      for(var i =0;i<buttons.length;++i) {
+          (function(i) {
+              buttons[i].addEventListener('click', () => {
+                  alert(`${i + 1} button`);
+              });
+          })(i);
+      }
+  })();
+
+
+
+  </script>
+</body>
+</html>

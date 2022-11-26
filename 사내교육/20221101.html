@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20221101</title>
+</head>
+<body>
+  <pre>
+    문자열
+    백틱 사용 권장
+    이스케이프 문자 \n 줄바꿈 \t 탭
+    윈도우 줄바꿈 역슬래쉬
+    UTF-8
+    한글 2바이트
+    특수문자 3바이트
+    연산 > 네트워크속도
+    추후 네트워크속도가 연산보다 빠르면 utf-16쓸수도
+    문자열은 불변-메모리에 저장하고 +'문자'하면 따로 메모리에 만듬
+
+
+    배열-메모리에 동일하게 순서대로
+    let fruit = ['사과','오렌지','자두'];
+
+    shift push = 큐
+    push pop = 스택
+
+    prototype 복습
+
+    clone 코딩
+
+  </pre>
+  <script>
+console.log( `My\n`.length); //3  
+let arr2 = ['사과',{name : '이보라'},true,function(){alert('안녕하세요')}];
+console.log(arr2)
+var a =[];
+a[100]=100;
+a[0]=0
+for(var i in a){
+  console.log(a[i])
+}
+a[1000]=1000
+
+for(var j=0;j<a.length;++j){
+  console.log(a[j])
+}
+for(var j in a){
+  console.log(a[j])
+}
+a.forEach((e) => {console.log(e)})
+a.forEach(function(e){
+  console.log(e+'=each')
+})
+
+// let arr = [];
+// function stack(arr){
+//   arr.push(a){
+//     this.arr[index]
+//   }
+//   arr.pop(a){
+
+//   }
+// }
+// function Stack (){
+//   this.store = [];
+//   this.index = 0;
+// }
+// Stack.prototype.push = function (value){
+//   // let index = this.store.length;
+//   // this.store[this.index] = value;
+//   this.store[this.index++] = value;
+// }
+// Stack.prototype.pop = function (value){
+//   // let index = this.store.length;
+//   // let value = this.store[this.index-1];
+//   // this.store[this.index-1]=undefined;
+//   if(0<this.index){
+//     let value = this.store[this.index--];
+//     return value;
+//   }else{
+//     throw Error('error')
+//   }
+// }
+// let s = new Stack();
+// s.push(1)
+// s.push(2)
+// s.push(3)
+// s.push(4)
+// s.pop();
+
+
+
+// function Queue (){
+//   this.store = [];
+//   this.index = 0;
+// }
+// Queue.prototype.push = function (value){
+//   // let index = this.store.length;
+//   // this.store[this.index] = value;
+//   this.store[index++] = value;
+// }
+// Queue.prototype.shift = function (value){
+//   // let index = this.store.length;
+//   // let value = this.store[this.index-1];
+//   // this.store[this.index-1]=undefined;
+//   if (0 < this.index) {
+//       let value = this.store[0];
+//       for (let i = 1; i < this.index; ++i) {
+//           this.store[i - 1] = this.store[i];
+//       }
+//       this.store[--this.index] = undefined;
+//       return value;
+
+//   } else {
+//       throw Error('빔');
+//   }
+// }
+
+
+
+
+
+
+//답
+
+        function Stack() {
+            this.store = [];
+            this.index = 0;
+        }
+
+        Stack.prototype.push = function (value) {
+            this.store[this.index++] = value;
+        };
+
+        Stack.prototype.pop = function () {
+            if (0 < this.index) {
+                let value = this.store[--this.index];
+                this.store[this.index] = undefined;
+                return value;
+            } else {
+                throw Error('빔');
+            }
+        };
+
+        let s = new Stack();
+
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+
+        function Queue() {
+            this.store = [];
+            this.index = 0;
+        }
+
+        Queue.prototype.push = function (value) {
+            this.store[this.index++] = value;
+        };
+
+        Queue.prototype.shift = function () {
+            if (0 < this.index) {
+                let value = this.store[0];
+                for (let i = 1; i < this.index; ++i) {
+                    this.store[i - 1] = this.store[i];
+                }
+                this.store[--this.index] = undefined;
+                return value;
+
+            } else {
+                throw Error('빔');
+            }
+        };
+
+        let q = new Queue();
+
+        q.push(1);
+        q.push(2);
+        q.push(3);
+
+  </script>
+</body>
+</html>

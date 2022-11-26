@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./1.css">
+    <title>자바스크립트 function 문법 사용법</title>
+</head>
+<body>
+    <div class="alert-box" id="alert">알림창임</div>
+    <button onclick="openAlert();">열기</button>
+    <button onclick="closeAlert();">닫기</button>
+    <script>
+        //긴 코드를 짧은 단어로 축약
+        //긴 코드 재사용 용이
+        // function 작명(){
+
+        // }
+        function openAlert(){
+            document.getElementById('alert').style.display = 'block';
+        }
+        function closeAlert(){
+            document.getElementById('alert').style.display = 'none';
+        }
+        //코드짤 때 자주 겪는 에러메세지
+        //1.조작할 html 하단에 코드짜야 잘됩니다.
+        //2.셀렉터 오타 주의
+        //3.기본문법오타
+    </script>
+</body>
+</html>

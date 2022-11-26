@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문자열</title>
+</head>
+<body>
+  <pre>
+
+  </pre>
+  <script>
+    //따옴표
+    // function sum(a,b){
+    //   return a+b;
+    // }
+    // alert(`1 + 2 = ${sum(1,2)}.`) //
+
+    // //백틱
+    // let guestList = `손님 : 
+    //   * John
+    //   * Pete
+    //   * Mary
+    // `;
+    // alert(guestList);
+
+    //특수기호
+//     let str1 ="Hello\nWorld"; //줄바꿈 기호
+//     let str2 = `Hello
+// World`;
+//     console.log(str1)
+//     console.log(str2)
+//     console.log(str1 == str2)
+
+//     console.log('I\'m the Walrus!')
+//     console.log(`I'm the Walrus!`)
+
+//     //문자열의 길이
+//     console.log(`My\n`.length) //3 \n도 특수문자 하나로 취급
+//     //length는 프로퍼티 
+
+//     //특정글자에 접근
+    // let strA = `hello`;
+
+    // console.log(strA[0])
+    // console.log(strA.charAt(0))
+
+    // console.log(strA[strA.length - 1]);
+
+//     console.log(strA[1000]) //undefined
+//     console.log(strA.charAt(1000)) //''빈문자열
+
+//     for(let char of "Hello"){
+//       console.log(char); // H, e, l, l, o 출력
+//     }
+
+    //문자열의 불변성
+    // let strC = 'Hi';
+    // strC[0] = 'a'; // Error: Cannot assign to read only property '0' of string 'Hi'
+    // console.log( strC[0] ); // 동작하지 않습니다.
+    // console.log(strC) //변하지 않음
+
+    let strD = 'Hiasdasdsd';
+    // strD = 'a' + strD[1]; //문자열 전체를 교체함
+    // strD2 = 'a' + strD.slice(1); //문자열 전체를 교체함
+    strD = 'a' + strD.slice(1); //문자열 전체를 교체함
+
+    console.log(strD)
+    // console.log(strD2)
+    
+
+    //대소문자 변경하기
+    // alert('Interface'.toUpperCase()); 
+    // console.log('Interface'.toUpperCase())
+    // console.log('Interface'.toLowerCase())
+    // alert('Interface'.toLowerCase());
+
+    //부분 문자열 찾기
+    // let  str = 'Widget with id';
+    // alert(str.indexOf('Widget')) //0
+    // alert(str.indexOf('widget')) //-1
+    // alert(str.indexOf('id')) //1
+    // alert(str.indexOf('id',2)) //12  'id'가 두번째로 등장하는 위치
+
+    // let str = 'As sly as a fox, as strong as an ox';
+    // let target = 'as' //as를 찾아봅시다~
+    // let pos = 0;
+    // while(true){
+    //   let foundPos = str.indexOf(target,pos);
+    //   if(foundPos == -1) break; //없으면 그만
+    //   console.log(`위치 : ${foundPos}`);
+    //   pos = foundPos + 1; //다음 위치를 기준으로 검색을 이어갑니다~
+    // }
+
+    // let str = 'As sly as a fox, as strong as an ox';
+    // let target = 'as'; //as를 찾아봅시다!
+    // let pos = 0;
+    // while (true){
+    //   let foundPos = str.indexOf(target,pos);
+    //   if (foundPos == -1) break;
+      
+    //   console.log(`위치 : ${foundPos}`);
+    //   pos = foundPos + 1;
+    // }
+    
+    // let str = 'As sly as a fox, as strong as an ox';
+    // let target = 'as' //as를 찾아봅시다~
+    // let pos = 0;
+    // while(true){
+    //   let foundPos = str.indexOf(target,pos);
+    //   if(foundPos == -1) break;
+    //   console.log(`위치 : ${foundPos}`);
+    //   pos = foundPos + 1;
+    // }
+
+    // let str = 'Widget with id';
+    // if(str.indexOf('Widget')){
+    //   alert('찾았다!')
+    // }
+    // if (str.indexOf("Widget")) {
+    //     alert("찾았다!"); // 의도한 대로 동작하지 않습니다.
+    // }
+    // if(~str.indexOf('Widget')){
+    //   alert('또찾았다!')
+    // }
+
+    // let str = " stringify";
+    // console.log(str.slice(2)); //ringify
+    // console.log(str.slice(2,6)); //ring
+    // console.log(str.slice(-1,-4)) //""
+    // console.log(str.slice(6,2)) //""
+    // console.log(str.slice(-7,-3)) // ring
+    // console.log(str.substring(2,6))//ring
+    // console.log(str.substring(6,2)) //ring
+    // console.log(str.substr(2,4))//ring 두번째부터 글자 네 개
+    // console.log(str.substr(-4,2))//gi 끝에서 네번째부터 글자 두 개
+    // let strTrim = str.trim();
+    // console.log(str)
+    // console.log(strTrim)
+    // console.log(strTrim.repeat(3))
+
+    // john을 넣으면 첫 글자를 대문자로
+    function ucFirst(str){
+      if(!str) return;
+      // return console.log(str[0].toUpperCase() + str.slice(1))
+      let first = str.slice(0,1);
+      let etc = str.slice(1);
+      console.log(first.toUpperCase() + etc)
+    }
+    ucFirst("john");
+
+  </script>
+</body>
+</html>

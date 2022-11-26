@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    객체와 원시 타입의 근본적인 차이중하나는 객체는 참조에 의해 저장되고 복사됨
+    원시값(문자열,숫자,불린 값)은 '값 그대로' 저장 할당되고 복사되는 반면에 말이죠
+    let message = 'Hello';
+    let phase = message;
+    위를 실행하면 두개의 독립된 변수에 각각 문자열 Hello가 저장
+    그런데 객체의 동작방식은 다르다
+    변수엔 객체가 그대로 저장되는 것이 아니라, 객체가 저장되어있는 메모리 주소인 객체에 대한
+    참조값이 저장됩니다
+    
+    let user = {
+      name : 'John';
+    }
+    객체는 메모리 내 어딘가에 저장되고 변수 user엔 객체를 참조할수있는 값이 저장
+    따라서 객체가 할당된 변수를 복사할땐 객체의 참조값이 복사되고 객체는 복사되지 않습니다.
+    let user = {name : 'John'};
+    let admin = user;
+    변수는 두개이지만 각 변수엔 동일 객체에 대한 참조값이 저장됩니다
+    따라서 객체에 접근하거나 객체를 조작할땐 여러변수를 사용할 수 있습니다
+
+    let user= {name : 'John'};
+    let admin = user;
+    admin.name = 'Pete';
+    console.log(user.name) //Pete
+
+
+    **참조에 의한 비교
+    객체 비교시 동등 연산자 ==와 일치연산자 ===는 동일하게 동작
+    let a = {};
+    let b = a; //참조에 의한 복사 
+    console.log(a==b) //true
+    console.log(a===b) //true
+    그러나 
+    let a = {};
+    let b = {};
+    console.log(a==b); //false
+
+
+    **객체복사, 병합과 object.assign
+    객체가 할당된 변수를 복하사면 동일한 객체에 대한 참조값이 하나더 만들어진다는걸 배웠습니다
+    그런데 객체를 복제하고 싶다면 어떻게해야할까요
+    기존에 있던 객체와 똑같으면서 독립적인 객체를 만들고 싶다면 말이죠
+    방법은 있는데 자바스크립트는 객체 복제내장 메서드를 지원하지 않기 때문에 조금 어렵
+    참조에 의한 복사로 해결가능한 일이 대다수
+    let user = {
+      name : 'John',
+      age : 30
+    };
+    let clone = {};//새로운 빈 객체
+    //새로운 빈 객체에 프로퍼티 전부를 복사해 넣습니다
+    for(let key in user){
+      clone[key]=user[key];
+    }
+    clone.name = 'Pete';
+    console.log(clone.name);
+    console.log(user.name);
+
+
+
+
+
+
+
+  </pre>
+
+  <script>
+    let user = {
+      name : 'John',
+      age : 22
+    };
+    let clone = {};
+    for(let key in user){
+      clone[key] = user[key];
+    }
+    clone.name = 'Pete';
+    console.log(user.name) //John
+    console.log(clone.name)
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변수, 사칙연산 실력향상 과제</title>
+</head>
+<body>
+    <h3>Q5. 간단한 퀴즈 UI를 만들어봅시다.</h3>
+    <p>태조 이성계가 태어난 년도는?</p>
+    <input type="text" name="" id="answer">
+    <button id="send-answer">제출</button>
+    <script>
+        //Q5. 간단한 퀴즈 UI를 만들어봅시다.
+        const send = document.querySelector('#send-answer');
+        let count = 0;
+        send.addEventListener('click', function(){
+            count++;
+            var answer = document.querySelector('#answer').value;
+            if(answer == 1335){
+                alert('정답입니다');
+            }else if(answer != 1335 && count > 2){
+                alert('멍청아');
+            }else{
+                alert('틀렸습니다');
+            }
+        });
+    </script>
+
+    <script>
+        //Q1. 변수를 만들어봅시다
+        let age = 41;
+        const place = '서울';
+
+        //Q2. 왜 이 변수는 동작하지 않죠? 
+        var name = 'park';
+        var id = 0;
+
+        function showName(){
+            var name = 'kim';
+            var id = 1;
+            console.log(name);
+        }
+        showName();
+        console.log(id);
+        //'kim', 0
+
+        //Q3. 이자율 계산하기 
+        let money = 60000;
+        let futureMoney = 0;
+        if(money >= 50000){
+            futureMoney = money * 1.2 * 1.2;
+            // futureMoney = money ** 1.2;
+        }else{
+            futureMoney = money * 1.15 * 1.15;
+            // futureMoney = money ** 1.15;
+        }
+        console.log('이자율 : ' + futureMoney);
+
+        //정답 응용1
+        // function cal(money){
+        //     var futureMoney = 0;
+        //     if(money < 50000){
+        //         futureMoney = money * 1.15 * 1.15;
+        //     }else{
+        //         futureMoney = money * 1.2 * 1.2;
+        //     }
+        //     console.log(futureMoney);
+        // }
+        // cal(60000);
+
+        //정답 응용2
+        // function calc(money){
+        //     let futureMoney = 0;
+        //     if(money >= 50000){
+        //         futureMoney = money * 1.2 * 1.2;
+        //     }else{
+        //         futureMoney = money * 1.15 * 1.15;
+        //     }
+        //     console.log(futureMoney);
+        // }
+        // calc(100000);
+
+        //Q4. 커피 리필을 이상하게 해주는 곳이 있습니다. 최대한 마실 수 있는 커피양을 계산해봅시다. 
+        var first = 360;
+        var total = 0;
+        total = first * 2 / 3 + first * 2 / 3 * 2 / 3
+        console.log('리필 총량 : ' + total)
+        // var first1 = 360;
+        // coffee = first1 + first1 * 2 / 3 + first1 * 2 / 3 * 2 / 3;
+        // console.log(coffee);
+        function coffee(first){
+            total = first + first * 2 / 3 + first * 2 / 3 * 2 / 3;
+            console.log('먹을 수 있는 커피 총량 : ' + total);
+        }
+        coffee(360);
+
+    </script>
+
+</body>
+</html>

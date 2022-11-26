@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./1.css">
+    <title>동적 UI 만드는 스텝(Alert 박스 만들기)</title>
+</head>
+<body>
+    <!-- UI만드는 step 
+    1.html/css로 미리 디자인
+    2.필요할때 보여달라고 코드짬 -->
+    <div class="alert-box" id="alert">알림창임</div>
+    <!-- <button class="open">열기</button> -->
+    <button onclick="document.getElementById('alert').style.display='block';">열기</button>
+    <!-- <button class="close">닫기</button> -->
+    <button onclick="document.getElementById('alert').style.display = 'none';">닫기</button>
+    <script>
+        // document.querySelector('.open').addEventListener('click',function(){
+        //     document.querySelector('.alert-box').classList.add('active');
+        // });
+        // document.querySelector('.close').addEventListener('click',function(){
+        //     document.querySelector('.alert-box').classList.remove('active');
+        // });
+    </script>
+</body>
+</html>

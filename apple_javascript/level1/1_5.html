@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./1.css">
+    <title>자바스크립트 이벤트리스너</title>
+</head>
+<body>
+    <div class="alert-box" id="alert">
+        <p id="title">알림창임</p>
+        <button onclick="openAlert('none','알림창임')">닫기</button>
+    </div>
+    <button onclick="openAlert('block','아이디입력하세요');">버튼1</button>
+    <button onclick="openAlert('block','비번입력하세요');">버튼2</button>
+    <script>
+        //getElementsByClassName 셀렉터
+        function openAlert(a,b){
+            document.getElementById('alert').style.display = a;
+            // document.getElementByClassName('alert-box').style.display = a;
+            document.getElementById('title').innerHTML = b;
+        }
+    </script>
+    <br>
+    <br>
+    <br>
+    <div class="alert-box2" id="alert2">
+        <p id="title2">알림창임</p>
+        <button class="alertClose">닫기</button>
+    </div>
+    <button class="idOpen">2버튼1</button>
+    <button class="pwOpen">2버튼2</button>
+    <script>
+        // addEventListener
+        //function(){}콜백함수
+        document.querySelector('.alertClose').addEventListener('click',function(){
+            document.querySelector('.alert-box2').style.display='none';
+        });
+        document.querySelector('.idOpen').addEventListener('click',function(){
+            document.querySelector('.alert-box2').style.display='block';
+        });
+    </script>
+</body>
+</html>

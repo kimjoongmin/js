@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20221027</title>
+</head>
+<body>
+
+  <pre>
+    **원시값의 메서드
+    자바스크립트 엔진은 위 프로세스의 최적화에 많은 신경을 씁니다. 
+    원시 래퍼 객체를 만들지 않고도 마치 원시 래퍼 객체를 생성(명세에 언급됨)한 것처럼 
+    동작하게끔 해주죠.
+    원시래퍼객체(원시자료형들을 감싸는 객체)
+
+    parseInt('1px') // 1
+
+    **toString(base)
+    let num = 255;
+    alert( num.toString(16) );  // ff
+    alert( num.toString(2) );   // 11111111
+
+    alert( 123456..toString(36) ); // 2n9c
+
+
+    ***숫자형
+
+
+  </pre>
+
+  <script>
+    // let a = {}
+    // a.x = 1;
+    // let b = 1;
+    // b.a=2;
+    // b // 1
+    // b.a // undefined
+
+    // let s = ' a '
+    // s.trim() //'a'
+    // s // ' a '
+    //자바스크립트 개발자가 편하게 사용자가 편하게
+
+    // alert(null.test); //error
+
+    // let a = 1000_0000  // 팀끼리 약속 
+    // console.log(a);
+    
+    // encode = 62
+    // decode = 62 
+    // function aa(b){
+    //   let decode;
+    //   let mul = b*(62**0)+b*(62**1)+b*(62**2);
+      
+    //   return decode = mul.toString(36)
+    // }
+    // console.log(aa(62));
+
+    // //0-9, A-Z, a-z 48 65 97
+    // //'a'.charCodeAt() 아스키코드
+    // function encode62(num){
+    //   let a;
+    //   let r = '';
+    //   for(;0<num;){
+    //     let a = num % 62;
+    //     num = ((num-a) / 62);
+    //     r = numToc62(a) + '_' + r ;
+    //     console.log(a, '>>', num)
+
+    //   }
+    //   // console.log(num,a)
+    //   return r;
+    // }
+    // function numToc62(n){
+    //   if(0<=n && n <= 9){
+    //     return String.fromCharCode(48+n)
+    //   } else if(10<=n && n <= 35){
+    //     return String.fromCharCode(65+(n-10))
+    //   }  else if(36<=n && n <= 61){
+    //     return String.fromCharCode(97+(n-36))
+    //   } 
+    // }
+    // function decode62(num){
+    //   let a;
+    //   let r = '';
+    //   let r1 = '';
+    //   for(;0<num;){
+    //     let a = num % 62;
+    //     num = ((num-a) / 62);
+    //     r = numToc62(a) + '_' + r ;
+    //     console.log(a, '>>', num)
+
+    //   }
+    //   // console.log(num,a)
+    //   return r;
+    // }
+    // function c62ToNum(c62){
+    //   let code = c62.charCodeat();
+    //   if(48<=c62 && c62 <= 9){
+    //     return String.fromCharCode(48+n)
+    //   } else if(65<=c62 && c62 <= 35){
+    //     return String.fromCharCode(65+(n-10))
+    //   }  else if(97<=c62 && c62 <= 61){
+    //     return String.fromCharCode(65+(n-36))
+    //   } 
+    // }
+
+     //0-9,A-Z,a-z 48,65, 97
+     function encode62(num) {
+        let r = '';
+
+        for(;0<num;) {
+            let a = num % 62;
+            num = ((num-a) / 62);
+            r = numToc62(a) + r;
+        }
+
+        return r;
+    }
+
+    function decode62(str62) {
+        let c62s = [...str62];
+        let r = 0;
+
+        for(let i=0;c62s.length;++i) {
+            let a = c62ToNum(c62s.pop());
+            r+= a * (62**i)
+        }
+
+        return r;
+    }
+
+    function numToc62(n) {
+        let s = [
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'C', 'd', 'e', 'f', 'g', 'h', 'i', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+        ];
+
+        return s[n];
+        // if(0<=n && n<=9) {
+        //     return String.fromCharCode(48+n);
+        // }else if(10<=n && n<=35) {
+        //     return String.fromCharCode(65+(n-10));
+        // }else if(36<=n && n<=61) {
+        //     return String.fromCharCode(97+(n-36));
+        // }
+    }
+
+    function c62ToNum(c62) {
+        let m = {
+            '0': 0,
+            '1': 1,
+            'A': 10,
+            'B': 11,
+            'a': 36
+        }
+        
+        return m[c62];
+        // let code = c62.charCodeAt();
+
+        // if(48<=code && code<=57) {
+        //     return code-48;
+        // }else if(65<=code && code<=90) {
+        //     return (code+10)-65;
+        // }else if(97<=code && code<=122) {
+        //     return (code+36)-97;
+        // }
+    }    
+        //61 = z
+        //62 = 10
+        //63 = 11
+        // 5000 / 62 = 24 .. 1
+        //134 / 62 = 2 .. 10
+        // 10 /62 = 0 .. 10
+
+  </script>
+
+</body>
+</html>

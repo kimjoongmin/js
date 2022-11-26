@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20221020</title>
+</head>
+<body>
+    <pre>
+        stack(원시형) / heap(참조, 객체)
+
+        os  32bit = 2 ** 32 = 42억
+        4GB뿐이 사용못함
+
+        2 ** 10 = 1024 
+
+        객체 리터럴 = 실제 메모리에 차지할때
+        리터럴
+        let a = {};
+
+        for in 문
+
+        참조에 의한 객체 복사
+
+        복사 함수 a(1)  호출 // 1을 복사(메모리에)
+        함수가 끝나면 메모리에서 지움
+
+        함수호출은 복사 
+        참조 = 복사
+
+        
+        객체복사일떄
+        깊은 복사
+        딥 카피
+
+        얕은 복사
+
+        코딩은 직접 처바
+
+        function this  =  호출하는 시점
+
+        화살표함수에서 this =  선언하는 시점
+        
+    </pre>
+    <script>
+        //문제 : swap(1,2) 결과는  2,1 되게
+        function swap(a,b){
+            t=a;
+            a=b;
+            b=t;
+            console.log('swap',a,b);
+        }
+        let c =1, d=2;
+        console.log('main', c, d)
+        swap(5,3)
+        console.log('main', d, c)
+
+        let u = {
+            name : "u",
+            f:function (){
+
+            }
+        }
+        
+    </script>
+</body>
+</html>

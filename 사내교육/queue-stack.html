@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <pre>
+    배열과 메서드 복습 필요
+  </pre>
+  
+  <script>
+    //연습
+    //if..else 구조를 이용해 "자바스크립트의 ‘공식’ 이름은 무엇일까요?"라는 질문을 하는 코드를 작성해 보세요.
+    // 사용자가 'ECMAScript’를 입력했다면 ‘정답입니다!’, 아니라면 '모르셨나요? 정답은 ECMAScript입니다!'라는 메시지를 보여주세요.
+    // let answer = prompt(`자바스크립트의 '공식' 이름은 무엇일까요?`,'ECMAScript');
+    // let message = (answer == 'ECMAScript') ? '정답입니다!' : '모르셨나요? 정답은 ECMAScript 입니다!'
+    // console.log(message);
+
+    //연습2
+    // let result;
+    // if (a + b < 4) {
+    //   result = '미만';
+    // } else {
+    //   result = '이상';
+    // }
+    // //연산자로~
+    // let result2 = (a+b<4) ? '미만' : '이상';
+    
+    //연습3
+    // let message;
+    // let login = '';
+    // if (login == '직원') {
+    //   message = '안녕하세요.';
+    // } else if (login == '임원') {
+    //   message = '환영합니다.';
+    // } else if (login == '') {
+    //   message = '로그인이 필요합니다.';
+    // } else {
+    //   message = '';
+    // }
+    // //연산자로~
+    // let login = prompt('로그인을 해주세요','');
+    // let message = (login == '직원') ? '안녕하세요' : 
+    // (login == '임원') ? '환영합니다.' : 
+    // (login == '') ? '로그인이 필요합니다.' : 
+    // '';
+    // console.log(message);
+
+
+
+    
+    //배열
+    // let a = [];
+    // a[100] = 100;
+    // a[0] = 0;
+    // for(var i in a){
+    //   console.log(a[i]);
+    // }
+    // a[1000] = 1000;
+    // for(let j =0;j<a.length;j++){
+    //   console.log(a[j])
+    // }
+    // for(let j in a){
+    //   console.log(a[j]+' for in')
+    // }
+    // a[10000] = 10000;
+    // a.forEach((e) => {console.log(e + ' forEach')});
+
+
+    //Stack 함수
+    // function Stack(){
+    //   this.arr = [];
+    //   this.index = 0;
+    // }
+    // Stack.prototype.push = function(value){
+    //   this.arr[this.index++] = value;
+    // }
+    // Stack.prototype.pop = function(){
+    //   if(0 < this.index){
+    //     let value = this.arr[this.index--];
+    //     this.arr[this.index] = undefined;
+    //     return value;
+    //   } else {
+    //     console.log('error')
+    //   }
+    // }
+    // let stack = new Stack();
+    // stack.push(1);
+    // stack.push(2);
+    // stack.push(3);
+    // //stack.pop();
+
+    //stack 함수
+    // function Stack (){
+    //   this.arr=[];
+    //   this.index=0;
+    // }
+    // Stack.prototype.push = function(value){
+    //   this.arr[this.index++] = value;
+    // }
+    // Stack.prototype.pop = function(){
+    //   if(0 < this.index){
+    //     let value = this.arr[this.index--];
+    //     this.arr[this.index] = undefined;
+    //     return value
+    //   }else{
+    //     console.log('Error')
+    //   }
+    // }
+    // let stack = new Stack();
+    // stack.push(1);
+    // stack.push(2);
+    // stack.push(3);
+    // stack.push(4);
+
+    // //Queue 함수
+    // function Queue(){
+    //   this.arr = [];
+    //   this.index = 0;
+    // }
+    // Queue.prototype.push = function(value){
+    //   this.arr[this.index++] = value;
+    // }
+    // Queue.prototype.shift = function(){
+    //   if(0 < this.index){
+
+    //     let value = this.arr[0];
+    //     for(let i=1;i<this.index;i++){
+    //       this.arr[i-1] = this.arr[i];
+    //     }
+    //     this.arr[--this.index] = undefined;
+    //     return value;
+    //   } else {
+    //     console.log('Error')
+    //   }
+    // }
+    // let queue = new Queue();
+    // queue.push(4);
+    // queue.push(3);
+    // queue.push(2);
+    // queue.push(1);
+
+
+
+    function Stack() {
+      this.store = [];
+      this.index = 0;
+    }
+
+    Stack.prototype.push = function (value) {
+      this.store[this.index++] = value;
+    };
+
+    Stack.prototype.pop = function () {
+      if (0 < this.index) {
+        let value = this.store[--this.index];
+        this.store[this.index] = undefined;
+        return value;
+      } else {
+        throw Error('빔');
+      }
+    };
+
+    let s = new Stack();
+
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+
+    function Queue() {
+      this.store = [];
+      this.index = 0;
+    }
+
+    Queue.prototype.push = function (value) {
+      this.store[this.index++] = value;
+    };
+
+    Queue.prototype.shift = function () {
+      if (0 < this.index) {
+        let value = this.store[0];
+        for (let i = 1; i < this.index; ++i) {
+          this.store[i - 1] = this.store[i];
+        }
+        this.store[--this.index] = undefined;
+        return value;
+
+      } else {
+        throw Error('빔');
+      }
+    };
+
+    let q = new Queue();
+
+    q.push(1);
+    q.push(2);
+    q.push(3);
+
+
+  </script>
+</body>
+</html>

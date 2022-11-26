@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    - 오래된 바
+    - 전역 객체
+    - 객체로서의 함수와 기명 함수 표현식
+    - new Function 문법 //안중요
+    - setTimeout과 setInterval을 이용한 호출 스케줄링
+    - call/apply와 데코레이터, 포워딩
+    - 함수 바인딩
+    - 화살표 함수 다시 살펴보기
+    - this 심화
+
+
+
+
+
+ 
+
+
+    function f(){
+      f();
+    }//에러 안남 시점을 구분(선언과 실행)
+
+    arguments 유사배열
+
+
+    call/apply
+
+    숫자는 substr안됨
+    대신 call 과 apply사용해서 치환해서 됨~
+    남의것을 빌려서 사용~
+    apply는 파라미터를 배열로 받음
+    ''.substr.call(1234,1,1); //2 
+    ''.substr.apply(1234,[1,1]); //2 
+
+    클로저 = 변수 참조
+    함수는 = 복사
+
+    람다 this 구분
+
+    화살표 함수는 선언되는 되는 시점의 this를 사용
+    (시점이 다르다는 것으로 이해)
+
+    부모와 자식 간에는 자식은 부모보다 더 많은 정보 가지고 있음(부모정보를 상속)
+
+
+
+
+
+
+  
+
+
+
+
+    
+
+
+  </pre>
+  <script>
+    let a = 1;//안지워짐
+    var b = 2;//안지워짐
+    window.c = 3; //지워짐
+    d = 4;//지워짐
+
+
+    let i = 1;
+    setInterval(function() {
+      func(i++);
+    }, 100);
+    //첫 번째 예시에선, 내부 스케줄러가 func(i++)를 100밀리초마다 실행합니다.
+
+
+    let i = 1;
+    setTimeout(function run() {
+      func(i++);
+      setTimeout(run, 100);
+    }, 100);
+
+    //중첩 setTimeout을 사용하면 명시한 지연(여기서는 100ms)이 보장됩니다.
+
+
+    function sayHi(who, phrase) {
+      alert( who + ' 님, ' + phrase );
+    }
+
+    setTimeout(sayHi, 1000, "홍길동", "안녕하세요."); // 홍길동 님, 안녕하세요.
+
+    function hash() {
+      alert( arguments.join() ); // Error: arguments.join is not a function
+    }
+
+    hash(1, 2);
+
+
+    function hash() {
+      alert( [].join.call(arguments) ); // 1,2
+    }
+
+    hash(1, 2);
+
+
+    //bind 만들기
+    Function.prototype.mybind = function(thiz) {
+        //let func = this
+        //return function(){func.call(thiz)};
+        return ()=>this.call(thiz);
+    }
+
+
+    //bind
+    let o = {
+        a:'1',
+        f: function() {
+            console.log(this.a);
+        }
+    };
+
+    let p = {
+        a:'2'
+    };
+
+    p.f = o.f;
+    p.bf = o.f.bind(o);
+    p.mbf = o.f.mybind(o);
+
+
+
+    //화살표함수 실수하는점
+    let o2 = {
+      a:1,
+      f:function(){
+        console.log(this.a)
+      },
+      af:()=>{
+        console.log(this.a)
+      },
+    }
+
+    o2.af() //undefined
+    o2.f() //1
+
+
+    
+
+  </script>
+</body>
+</html>

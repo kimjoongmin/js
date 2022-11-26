@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre>
+    map을 만들어주세요~
+    본인이 직접 작업해야함~
+    map = 
+    ?.
+    ?? 복습
+
+    **위크맵과 위크셋
+    읽어보고 쓸수있음 씀
+
+
+    iterator 짜오기~
+
+
+    let c = a.map(e => e);
+    let c = Array.from('abcde').map(e => e);
+
+
+
+    **구조분해할당
+    let [a,b] = [1,2];
+    let {x,y} = p;
+
+
+    let [firstName, surname] = arr;
+
+    let s = 'bora lee'.splite(' ' );
+    let firstName  = s[0].surName[1]
+
+    function a(...x){
+      console.log(...x)
+    }
+    a()
+
+
+    **중첩구조분해
+
+
+
+    **date 객체와 날짜
+
+    Date.now();
+
+    let d = new Date();
+    json.stringfy(d);
+    gmt 국제표준시로 적용
+
+
+  </pre>
+
+  <script>
+    function MyMap(size){
+      this.data = [];
+      this.size = (!size || size<0)?16:size;
+      // this.size = size<=0?16:size;
+    }
+    MyMap.prototype.set = function(key, value){
+      let hashCode = this.hashkey(key);
+      this.data[hashCode] = this.data[hashCode]??[];
+      this.data[hashCode] = {
+        key,
+        value
+      };
+    }
+    MyMap.prototype.get = function(key){
+      let hashCode = this.hashKey(key);
+      this.data[hashCode]?.find(e => e,key === key)?.value;
+    }
+    MyMap.prototype.hashkey = function(key){
+      let sum = 0;
+      for(let c of key) {
+                sum+=c.charCodeAt();
+            }
+      return sum % this.size;
+    }
+    // MyMap.prototype.has = function(key){
+    //   let hashCode = this.hashKey(key);
+    //   this.data[hashCode]?.find(e => e,key === key)?.value;
+    // }
+    // MyMap.prototype._expendData = function(){
+    //   let expendData = [];
+    //   let expendSize = this.size * 2;
+    // }
+    let m = new MyMap();
+    m.set('abc','abcData')
+    m.set('abcd','abcdData')
+
+
+
+
+  </script>
+</body>
+</html>

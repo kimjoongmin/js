@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./1.css">
+    <title>function의 파라미터 문법</title>
+</head>
+<body>
+    <div class="alert-box" id="alert">알림창임</div>
+    <button onclick="openAlert('block');">열기</button>
+    <button onclick="openAlert('none');">닫기</button>
+    <script>
+        //function에 구멍뚫기 파라미터문법
+        function openAlert(obj){
+            document.getElementById('alert').style.display = obj;
+        }
+        // function openAlert(){
+        //     document.getElementById('alert').style.display = 'block';
+        // }
+        // function closeAlert(){
+        //     document.getElementById('alert').style.display = 'none';
+        // }
+        
+    </script>
+</body>
+</html>
