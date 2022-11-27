@@ -142,27 +142,127 @@
     
     
     10.함수(function)의 기초
-    
-    
+    (function showError(매개변수){
+      console.log('에러입니다')
+    }())
+
+    function add(num1,num2){
+      return num1 + num2;
+    }
+    const result = add(2,3);
+    console.log(result);
+    한번에 한작업에 집중
+    읽기쉽고 어떤동작인지 알수있게 네이밍
+
     
     11.함수 표현식, 화살표 함수(arrow function)
-    
+    const sayHello = function(){//함수표현식
+      //코드
+    }
+    함수선언문은 어디서든 호출 = 인터프리터언어
+    자바스크립트 알고리즘때문에 함수부터 찾아 메모리에
+    호이스팅!!!!
+
+    함수표현식 코드에 도달하면 생성
+    함수선언문 > 함수표현식
+
+    화살표함수(익숙해질때까지)
+    let add = (num1,num2) => num1 + num2 ;
+
+    let showError = () => console.log('Error!'); //인수없을때
+    showError()
+
+    let add = function(num1,num2){
+      const result = num1 + num2;
+      return result;//return전에 여러줄 코드있으면 한줄로 못씀
+    }
+    let add = (num1,num2) => {
+      const result = num1 + num2;
+      return result;
+    }
     
     
     12.객체(Object)
+    superman = {
+      name : 'clark',
+      age : 30,
+    }
+    superman.name // clark
+    superman['age'] //30
+    추가 
+    superman.hairColor = 'black';
+    supermna['gender'] = 'male';
+    삭제
+    delete superman.hairColor;
     
+    존재여부확인 : undefined 
+    in 사용 : 어떤값이 넘어올지 모를때 사용
+    for(let key in superman){
+      console.log(key);
+      console.log(superman[key]);
+    }
     
-    
+
     13.객체(Object) - method, this
-    
+    const superman = {
+      name : 'clark',
+      age : 30,
+      fly : function(){ //fly(){줄여쓸수있음
+        console.log('날아갑니다')
+      }
+    }
+    superman.fly();//날아갑니다
+
+    ***객체프로퍼티로 할당 된 함수 = method 
+
+    const superman = {
+      name : 'clark',
+      age : 30,
+      fly : function(){ //fly(){줄여쓸수있음
+        console.log('날아갑니다')
+      },
+      sayHello : function (){
+        console.log(`Hello, ${this.name}`)
+      }
+    }
+    superman.sayHello();
+
+    object
+    화살표 함수는 일반 함수와는 달리 자신만의 this를 가지지 않음
+    화살표 함수 내부에서 this를 사용하면, 그 this는 외부에서 값을 가져옴
+    let boy = {
+      name : 'Mike',
+      age : 30,
+      sayHello : () => {
+        console.log(this) //전역객체
+      }
+    }
+    boy.sayHello();
+    this != boy
+    브라우저 : window
+    node js : global 
     
     
     14.배열(Array)
-  
+    순서가 있는 리스트
 
+    **배열의 특징
+    배열은 문자 뿐만아이니라 숫자 객체 함수 포함
+    length 배열의 길이
+    push(); 배열끝 요소추가
+    pop(); 배열끝 요소 제거
+    unshift(); 배열 처음에 추가 여러요소 한꺼번에 추가가능
+    shift(); 배열 처음 제거
 
+    배열사용하는 가장 큰이요 반복을위해 
+    for문 사용
+    for of문 사용(객체는 for in)
+    for(let day of days){
+      console.log(day)
+    }
+    for문 보다는 간단하지만 index를 얻을 수 없음.
 
-
+    
      
 
   </pre>
@@ -281,26 +381,138 @@
     //switch
     //사과:100원,바나나:200원,키위:300원,멜론:500원,수박:500원
     //사고싶은 과일 물어보고 가격알려주기
-    let fruit = prompt('어떤 과일을 구매하시겠습니까?');
-    switch(fruit){
-      case '사과':
-        console.log('100원 입니다');
-        break;
-      case '바나나':
-        console.log('200원 입니다');
-        break;
-      case '키위':
-        console.log('300원 입니다');
-        break;
-      case '멜론':
-      case '수박':
-        console.log('500원 입니다');
-        break;
-      default : 
-        console.log('그런 과일은 없습니다')
-    }
+    // let fruit = prompt('어떤 과일을 구매하시겠습니까?');
+    // switch(fruit){
+    //   case '사과':
+    //     console.log('100원 입니다');
+    //     break;
+    //   case '바나나':
+    //     console.log('200원 입니다');
+    //     break;
+    //   case '키위':
+    //     console.log('300원 입니다');
+    //     break;
+    //   case '멜론':
+    //   case '수박':
+    //     console.log('500원 입니다');
+    //     break;
+    //   default : 
+    //     console.log('그런 과일은 없습니다')
+    // }
 
+    //function
+    // function sayHello(name){
+    //   console.log(`Hello, ${name}`);
+    // }
+    // const sayHello = (name) => console.log(`Hello, ${name}`);
+    // function sayHello (name){//name을 입력하지 않을때
+    //   let newName = name || 'friend';
+    //   let msg = `Hello, ${newName}`;
+    //   console.log(msg);
+    // }
+    // function sayHello (name = 'friend'){ //매개변수를 기본값으로하면 좀 더 간단
+    //   let msg = `Hello, ${name}`;
+    //   console.log(msg);
+    // }
+    // sayHello();
+    // sayHello('Mike');
+    // sayHello('Jane');
 
+    // let showError = () => console.log('Error!'); //인수없을때
+    // showError()
+
+    //객체
+    // const superman = {
+    //   name : 'clark',
+    //   age : 30,
+    // }
+
+    // function makeObject (name,age){
+    //   return {
+    //     name,
+    //     age,
+    //     hobby : 'football'
+    //   }
+    // }
+    // let Mike = makeObject('Mike',30);
+    // console.log(Mike);
+
+    // console.log('age' in Mike);
+    // console.log('birthday' in Mike);
+
+    // function isAdult(user){
+    //   // if(!user.age || user.age < 20){//jane은 age가 없는데도 true나와서 수정
+    //   if(!('age' in user) || //user에 age가 없거나
+    //   user.age < 20){//20살 미만이거나
+    //     console.log('돌아가세요')
+    //   }else{
+    //     console.log('환영합니다')
+    //   }
+    // }
+    // const Mike = {
+    //   name : 'Mike',
+    //   age:30,
+    // }
+    // const Jane = {
+    //   name : 'Jane',
+    // }
+    // isAdult(Mike);
+    // isAdult(Jane);
+
+    //for in 문
+    // for(let i in Mike){
+    //   console.log(i);
+    //   console.log(Mike[i]);
+    // }
+
+    //method
+    // const superman = {
+    //   name : 'Clark',
+    //   age : 30,
+    //   fly : function(){ //fly(){줄여쓸수있음
+    //     console.log('날아갑니다')
+    //   },
+    //   sayHello(){
+    //     // console.log(`Hello, ${user.name}`);//에러
+    //     console.log(`Hello, ${this.name}`);//this
+    //   }
+    // }
+    // superman.sayHello();
+
+    // let boy = {
+    //   name : 'Mike',
+    //   showName : function(){
+    //     // console.log(boy.name);
+    //     console.log(this.name);//this로
+    //   }
+    // }
+    // // boy.showName(); // 'Mike'
+    // let man = boy; //man에 참조
+    // // man.showName();//Mike
+    // boy = null;
+    // // man.showName(); //에러 
+    // man.showName(); //메소드 안에 boy를 this로 바꾸고 실행 
+
+    //array
+    // let days = ['mon', 'tue', 'wed'];
+    
+    // days[1] = '화요일';
+    // console.log(days);
+    // console.log(days.length + ' <-배열의 길이')
+    // days.push('thu');
+    // console.log(days);
+    // days.pop();
+    // console.log(days);
+    // days.unshift('sun');
+    // console.log(days);
+    // days.shift();
+    // console.log(days);
+    // for(let i=0; i<days.length; i++){
+    //   console.log(days[i] + ' for문');
+    // }
+    // for(let day of days){
+    //   console.log(day+ ' for of 문');
+    // }
 
   </script>
 </body>
