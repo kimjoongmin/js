@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>생성자 함수</title>
+</head>
+<body>
+  <pre>
+    객체 리터럴
+    let user = {
+      name : 'Mike',
+      age : 30,
+    }
+    비슷한 객체를 여러개만들때 생성자 함수를 사용
+    예)회원, 상품
+
+    ***생성자함수 - 붕어빵 틀, 와플팬 이라고 생각(필요한 재료(인자)를 넣어주고 찍어냄)
+    function User(name,age){//함수명 첫 글자 대문자로
+      this.name = name;
+      this.age = age;
+    }
+    let user1 = new User('Mike',30);//new 연산자를 사용해서 호출
+    let user2 = new User('Jane',22);//new 연산자를 사용해서 호출
+    let user3 = new User('Tom',11);//new 연산자를 사용해서 호출
+    
+    //생성자 함수 :  상품 객체를 생성해보자
+    function Item(title, price){
+      //this = {}; 생략되어있음
+      this.title = title;
+      this.price = price;
+      this.showPrice = function(){
+        console.log(`가격은 ${price} 입니다.`);
+      }
+      //return this; 생략되어있음
+    }
+    let item1 = new Item('인형',3000);
+    let item2 = Item('가방',5000); //undefined 
+    let item3 = new Item('지갑',10000);
+
+    console.log(item1);
+    console.log(item2);
+    console.log(item3);
+    console.log(new Item('신발',100000));
+
+    item3.showPrice();
+  </pre>
+  <script>
+    //생성자 함수 :  상품 객체를 생성해보자
+    function Item(title, price){
+      //this = {}; 생략되어있음
+      this.title = title;
+      this.price = price;
+      this.showPrice = function(){
+        console.log(`가격은 ${price} 입니다.`);
+      }
+      //return this; 생략되어있음
+    }
+    let item1 = new Item('인형',3000);
+    let item2 = Item('가방',5000); //undefined 
+    let item3 = new Item('지갑',10000);
+
+    console.log(item1);
+    console.log(item2 + '//new 없이 호출되어있어서');//new 빠져있음
+    console.log(item3);
+    console.log(new Item('신발',100000));
+
+    item3.showPrice();
+
+  </script>
+</body>
+</html>

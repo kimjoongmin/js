@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>변수_호이스팅_TDZ</title>
+</head>
+<body>
+  <pre>
+    변수 
+    let 블록 스코프
+    const 블록 스코프
+
+    var : 함수 스코프
+    한번 선언된 변수를 다시 선언가능
+    선언하기전에 가능
+    호이스팅!!! 
+    선언은 호이스팅 되지만 할당은 호이스팅 안됨
+    var name;
+    console.log(name); //undefined
+    name = 'Mike'; //할당
+
+    *호이스팅 : 스코프 내부 어디서든 변수 선언은 최상위에 선언된 것 처럼 행동
+    호이스팅은 스코프 단위로 일어남
+    
+    let과 const는 tdz때문에 안됨 temporal dead zone
+
+    변수생성과정
+    1.선언 단계
+    2.초기화 단계
+    3.할당 단계
+
+    var
+    1.선언 및 초기화단계(undefined를 할당 해주는 단계)
+    2.할당 단계
+
+    let
+    1.선언단계
+    2.초기화단계
+    3.할당단계
+
+    const 1.선언 +초기화+할당
+    var name;
+    name = 'Mike';
+    let age;
+    age = 30;
+                  const gender; //error
+                  gender = 'male';
+
+
+    let과 const 사용 권장
+    예측 가능한 결과와 버그 줄임
+
+  </pre>
+  <script>
+    var name;
+    console.log(name);
+    name = 'Mike';
+
+    let age =30;
+    function showAge (){
+      console.log(age);
+      // let age = 20;//error 호이스팅을 이르킴
+    }
+    showAge();
+
+    function add(num1,num2){
+      return num1 + num2;
+    }
+    const result = add(2,3);
+    console.log(result);
+
+    function add2(num3,num4){
+      var result2 = num3 + num4;
+    }
+    add2(2,3);
+    console.log(result2); // 함수 스코프 var 값을 못가져옴
+  </script>
+</body>
+</html>
