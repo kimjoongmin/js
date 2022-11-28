@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>객체메소드_계산된프로퍼티</title>
+</head>
+<body>
+  <pre>
+    let a = 'age';
+    const user = {
+      name : 'Mike',
+      age : 30,
+      //[a] : 30,  //위와 같음 age : 30 // 계산된 프로퍼티
+    }
+
+    const cloneUser = user; X 복제된게 아니라 참조된것(메모리 주소만 같음)
+    -하나의 객체를 두변수가 접근하는중
+
+    Object.assign() : 객체 복제 
+    const newUser = Object.assign({},user); //{}는 초기값
+
+    Object.keys() : 키 배열 반환
+    const user = {
+      name : 'Mike',
+      age : 30,
+      gender : 'male',
+    }
+    Object.keys(user); // ['name','age','gender'] 키 배열 반환
+    Object.values(user); // ['Mike', 30,'male'] 값 배열 반환
+    Object.entries(user); // [ ['name','Mike'], ['age',30],['gender','male'] ] 키/값 배열 반환
+    
+    const arr = [
+      ['name','Mike'], 
+      ['age',30],
+      ['gender','male'],
+    ]
+    Object.fromEntries(arr); 키/값 배열을 객체로
+    {
+      name : 'Mike',
+      age : 30,
+      gender : 'male',
+    }
+
+
+
+  </pre>
+  <script>
+    let n = 'name';
+    let a = 'age';
+    const user = {
+      [n] : 'Mike', //계산된 프로퍼티
+      [a] : 30,
+    };
+    console.log(user);
+
+    function makeObj(key, value) {
+      return {
+        [key] : value,
+      }
+    }
+    const obj = makeObj('나이', 30);
+    console.log(obj);
+
+    const users ={
+      name : 'Mike',
+      age : 30,
+    }
+    // const users2 =  users; //error
+    const users2 = Object.assign({},users); //객체복제
+    users2.name = 'Jane';
+    console.log(users);//Mike
+    console.log(users2);//Jane
+
+    const result = Object.keys(users); //키를 배열로 반환
+    console.log(result);
+    const result2 = Object.values(users); //값을 배열로 반환
+    console.log(result2);
+    const result3 = Object.entries(users); //키와값을 배열로 반환
+    console.log(result3);
+
+    let arr = [
+      ['mon','월'],
+      ['tue','화'],
+    ]
+    const result4 = Object.fromEntries(arr); //배열을 객체로~
+    console.log(result4)
+
+  </script>
+</body>
+</html>
