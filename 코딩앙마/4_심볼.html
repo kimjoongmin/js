@@ -8,9 +8,60 @@
 </head>
 <body>
   <pre>
-    
+    property key : 문자형
+    const obj = {
+      1 : '1입니다.',
+      false : '거짓',
+    }
+    Object.keys(obj); // ['1','false']
+    obj['1'] // '1입니다'
+    obj['false'] // '거짓'
+
+    symbol - 유일한 식별자 , 유일성 보장
+
+    const a = Symbol('설명'); // new를 붙이지 않습니다!
+
+    property key : 심볼형
+    const id = Symbol('id');
+    const user = {
+      name: 'Mike',
+      age : 30,
+      [id] : 'myId' //계산된 프로퍼티
+    }
+
+    Symbol.for() : 전역심볼
+    -하나의 심볼만 보장받을 수 있음
+    -없으면 만들고, 있으면 가져오기 때문
+    -Symbol함수는 매번 다른 Symbol 값을 생성하지만,
+    -Symbol.for 메소드는 하나를 생성한 뒤 키를 통해 같은 Symbol을 공유
+    const id1 = Symbol.for('id');
+    const id2 = Symbol.for('id');
+    id1 === id2; // true // 그냥 Symbol은 false
+
+
+
   </pre>
   <script>
+    //1다른 개발자가 만들어놓은 객체~
+    let user ={
+      name : 'Mike',
+      age : 30,
+    }
+    //2내가 작업할~ 
+    // user.showName = function(){
+      // console.log(`Symbol 사용 : ` + this.name)
+    // }; //안됨
+    const showName = Symbol('show name');
+    user[showName] = function(){
+      console.log(`Symbol 사용 : ` + this.name)
+    }
+    user[showName]();
+
+    //3사용자가 접속하면 보는 메시지
+    for(let key in user){
+      console.log(`His ${key} is ${user[key]}.`)
+    }
+
 
   </script>
 </body>
