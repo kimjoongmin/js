@@ -127,7 +127,8 @@
                 data :this.data,
                 mainIndex:0,
                 subIndex:0,
-                next(){mainIndex < this.data.length){
+                next(){
+                    while(mainIndex < this.data.length){
                         if(this.data[mainIndex]?.length > 0){
                             let data = this.data[mainIndex][subIndex];
                             if(data){
@@ -136,10 +137,9 @@
                                     done: false, 
                                     value: {
                                         key: data.key,
-                                     
-                    if(this.   value: data.value
+                                        value: data.value
                                     }
-                                }
+                                };
                             } else{
                                 ++mainIndex;
                                 subIndex=0;
