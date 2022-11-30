@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number_Math</title>
+</head>
+<body>
+  <pre>
+    toString()
+    10진수 -> 2진수 / 16진수
+    let num = 10;
+
+    num.toString(); //"10"
+    num.toString(2); //"1010" //2진수
+
+    let num2 = 255;
+    num.toString(16); //"FF" //16진수
+
+    Math.PI;
+    3.141592...
+    Math.ceil(); 올림
+    let num1 = 5.1;
+    let num2 = 5.7;
+    Math.ceil(num1); // 6
+    Math.ceil(num2); // 6
+    Math.floor(); 내림
+    Math.floor(num1); //5
+    Math.floor(num2); //5
+    Math.round(); 반올림
+    Math.round(num1);//5
+    Math.round(num2);//6
+
+    소수점 자릿수
+    let userRate = 30.1234;
+    요구사항 : 소수점 둘째자리까지표현(셋째자리에서 반올림)
+    Math.round(userRate*100)/100 // 30.12
+
+    또는 toFixed() 사용
+    userRate.toFixed(2) //"30.12"
+    userRate.toFixed(0) //"30"
+    userRate.toFixed(6) //"30.123400"
+    주의 : 문자열을 반환함
+    그래서 다시 Number() 로 감싸줘야함
+    Number(userRate.toFixed(2)); //30.12
+
+    isNaN()
+    let x = Number('x'); //NaN
+    x == NaN //false
+    x === NaN //false
+    NaN == NaN //false
+    isNaN(x) // true
+    isNaN(3) // false
+
+    parseInt();
+    let margin = '10px';
+    parseInt(margin); // 10
+    Number(margin); //NaN 
+
+    let redColor = 'f3';
+    parseInt(redColor); // NaN
+    parseInt(redColor, 16) //243 <<< 두번째 인수에 16진수
+
+    parseInt('11',2) // 3 <<< 두번째 인수에 2진수
+
+    parseFloat(); 
+    let padding = 18.5%
+    parseInt(padding); //18
+    parseFloat(padding); //18.5
+
+    Math.random() 0~1사이 숫자
+    1~100하려면?
+    Math.floor(Math.random()*100)+1
+    1왜?
+    0.몇이 나왔을때 버림을 하면 0이 나오기때문에 1을 더해준다~
+
+    Math.max() 큰값 찾아주기 최대값
+    Math.min() 작은값 찾아주기 최소값
+
+    Math.abs()절대값 absolute;의 약자
+    Math.abs(-1)/ //1
+
+    Math.pow(n, m); 제곱 power의 약자
+    Math.pow(2, 10); //1024
+
+    Math.sqrt(); 제곱근
+    Math.sqrt(16); //4
+
+  </pre>
+  <script>
+    console.log(Math.ceil(4.22) + ' 올림');
+    console.log(Math.floor(5.77) + ' 내림');
+    console.log(Math.round(5.6) + ' 반올림');
+
+    console.log(Math.max(1,-10,3,5,22,-34));
+
+
+    //map 활요해 배열 속 객체를 재구성
+    var kvArray = [{key:1, value:10},
+               {key:2, value:20},
+               {key:3, value: 30}];
+
+    var reformattedArray = kvArray.map(function(obj){
+      var rObj = {};
+      rObj[obj.key] = obj.value;
+      return rObj;
+    });
+
+
+  </script>
+</body>
+</html>

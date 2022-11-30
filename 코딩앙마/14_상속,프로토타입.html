@@ -8,13 +8,168 @@
 </head>
 <body>
   <pre>
+    객체에는 자신이 가지고 있는 프로퍼티를 확인하는 메소드 hasOwnProperty
+    user.hasOwnProperty('name') //true
+    만든적없는데... 
+    __proto__  << 프로토타입
 
+    프로토타입 상속~
+
+    프로토타입 체인 Prototype Chain
+
+    Object.keys(x5);
+    Object.values(x5);
+    객체 내장 프로퍼티는 상속된 값은 안나옴
+
+     for(i in x5){
+       console.log(i)
+     }
+     console.log('//직접 가지고 있는 프로퍼티 값을 확인하고 싶을때')
+     for(i in x5){
+       if(x5.hasOwnProperty(i)){
+         console.log('o',i)
+       }else{
+         console.log('x',i)
+       }
+     }
+
+     생성자함수
+      
   </pre>
   <script>
-    const user = {
-      name : 'Mike',
-    }
-    console.log(user.name)
+    // const user = {
+    //   name : 'Mike',
+    // }
+    // console.log(user.name);
+
+
+    //prototype 예제
+    //3개의 자동차 있고, 그중 wheels와 drive는 중복
+    //그걸 car라는 객체에 담아두고 prototype으로 상속받아 쓴다~
+    // const car = {
+    //   wheels : 4,
+    //   drive(){
+    //     console.log('drive..');
+    //   }
+    // }
+
+    // const bmw = {
+    //   color : 'red',
+    //   navigation : 1,
+    //   // wheels : 4,
+    //   // drive : function(){
+    //   // // drive(){
+    //   //   console.log('drive..');
+    //   // }
+    // }
+
+    // const benz = {
+    //   color : 'black',
+    //   // wheels : 4,
+    //   // drive : function(){
+    //   // // drive(){
+    //   //   console.log('drive..');
+    //   // }
+    // }
+
+    // const audi = {
+    //   color : 'white',
+    //   // wheels : 4,
+    //   // drive : function(){
+    //   // // drive(){
+    //   //   console.log('drive..');
+    //   // }
+    // }
+
+    // bmw.__proto__ = car;
+    // benz.__proto__ = car;
+    // audi.__proto__ = car;
+
+    // //상속은 계속 이어짐
+    // const x5 ={
+    //   color:'white',
+    //   name : 'x5',
+    // }
+    
+    // x5.__proto__ = bmw;
+
+    // for(i in x5){
+    //   console.log(i)
+    // }
+    // console.log('//직접 가지고 있는 프로퍼티 값을 확인하고 싶을때')
+    // for(i in x5){
+    //   if(x5.hasOwnProperty(i)){
+    //     console.log('o',i)
+    //   }else{
+    //     console.log('x',i)
+    //   }
+    // }
+
+
+    //생성자함수 이용
+    // const Bmw = function(color){
+    //   this.color = color;
+    //   // this.wheels = 4; //중복부분 주석
+    //   // this.drive = function(){ //중복부분 주석
+    //   //   console.log('drive');
+    //   // }   
+    // }
+
+    // //2. prototype을 사용하여 __proto__ 줄임
+    // // Bmw.prototype.wheels = 4;
+    // // Bmw.prototype.drive = function(){
+    // //   console.log('drive..');
+    // // }
+    // // Bmw.prototype.navigation = 1; //추가
+    // // Bmw.prototype.stop = function(){
+    // //   console.log('stop..');
+    // // }
+    // //3.위를 줄임(대신 constructor가 있어야함)
+    // Bmw.prototype = {
+    //   constructor : Bmw, //꼭 있어야함 수동명시 명확하지는 않음. 하나씩쓰는게좋음
+    //   wheels:4,
+    //   drive : function(){
+    //     console.log('drive..')
+    //   },
+    //   navigation:1,
+    //   stop : function(){
+    //     console.log('stop!')
+    //   },
+    // }
+
+    // //2.prototype 사용하기때문에 car 필요 없어짐
+    // //1. __proto__로 줄이기 위해 중복 변수처리
+    // // const car = {
+    // //   wheels : 4,
+    // //   drive : function(){
+    // //     console.log('drive');
+    // //   }
+    // // }
+    // const x5 = new Bmw('black');
+    // const z4 = new Bmw('red');
+    
+    // //1. proto로 줄여서 car에서 상속
+    // // x5.__proto__ = car; 
+    // // z4.__proto__ = car;
+    
+    //아래 처럼 쓰면 사용자가 색을 강제로 바꿀수 있음
+    // const Bmw = function(color){
+    //   this.color = color;
+    // }
+    // const x5 = new Bmw('white');
+
+    //캡슐화?
+    const Bmw = function(color){
+      let _color = color;
+      this.getColor = function(){
+        console.log(_color);
+      },
+      this.setColor = function(a){ //set이 맞는지는 확인필요
+        _color = a;
+      }
+    } 
+    const x5 = new Bmw('white');
+
   </script>
 </body>
 </html>
