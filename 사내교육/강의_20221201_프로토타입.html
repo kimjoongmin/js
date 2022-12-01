@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로토타입상속</title>
+</head>
+<body>
+  <pre>
+
+    프로토타입은 읽기 전용
+
+    함수의 prototype 프로퍼티
+
+    내장 객체의 프로토타입
+
+    프로토타입 메서드와 __proto__가 없는 객체
+
+  </pre>
+  <script>
+
+
+
+
+
+
+
+
+
+
+
+    // function User(name, surname){
+    //   this.name = name;
+    //   this.surname = surname;
+    // }
+    // function Admin(name, surname){
+    //   this.name = name;
+    //   this.surname = surname;
+    // }
+    // Admin.prototype = new User();
+    // let a = new Admin('Alice','Cooper')
+    // a.getFullName(); // 'Alice Cooper'
+
+
+
+
+    function Rabbit(name) {
+      this.name = name;
+      console.log(name);
+    }
+
+    let rabbit = new Rabbit("흰 토끼");
+    let rabbit2 = new rabbit.constructor("검정 토끼");  //생성자를 통해 소스를 간단히
+
+
+
+
+    // function Rabbit() {}
+    // Rabbit.prototype = {
+    //   jumps: true
+    // };
+
+    // let rabbit = new Rabbit();
+    // console.log(rabbit.constructor === Rabbit); // false
+
+
+    // Rabbit.prototype = {
+    //   jumps: true,
+    //   constructor: Rabbit
+    // };
+
+
+
+
+
+    // let user = {
+    //   name: "John",
+    //   surname: "Smith",
+
+    //   set fullName(value) {
+    //     [this.name, this.surname] = value.split(" ");
+    //   },
+
+    //   get fullName() {
+    //     return `${this.name} ${this.surname}`;
+    //   }
+    // };
+
+    // let admin = {
+    //   __proto__: user,
+    //   isAdmin: true
+    // };
+
+    // console.log(admin.fullName); // John Smith (*)
+
+    // // setter 함수가 실행됩니다!
+    // admin.fullName = "Alice Cooper"; // (**)
+
+    // console.log(admin.fullName); // Alice Cooper, setter에 의해 추가된 admin의 프로퍼티(name, surname)에서 값을 가져옴
+    // console.log(user.fullName); // John Smith, 본래 user에 있었던 프로퍼티 값
+
+
+
+    // //for in 문
+    // let animal = {
+    //   eats: true
+    // };
+
+    // let rabbit = {
+    //   jumps: true,
+    //   __proto__: animal
+    // };
+
+    // //자신것 찾으려면 hasOwnProperty
+    // for(prop in rabbit) {
+    //   let isOwn = rabbit.hasOwnProperty(prop);
+
+    //   if (isOwn) {
+    //     console.log(`객체 자신의 프로퍼티: ${prop}`); // 객체 자신의 프로퍼티: jumps
+    //   } else {
+    //     console.log(`상속 프로퍼티: ${prop}`); // 상속 프로퍼티: eats
+    //   }
+    // }
+
+
+  </script>
+</body>
+</html>

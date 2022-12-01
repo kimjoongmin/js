@@ -39,13 +39,119 @@
     let desc = 'abcdefg';
     desc.slice()
 
+    str.substring(n,m); 
+    n과 m사이라고 알고 있으면됌
+    음수는 0으로 인식
+    let desc = 'abcdefg';
+    desc.substring(2,5);
+    desc.substring(5,2);
+
+    str.substr(n,m)
+    n부터 시작 
+    m은 개수
+    let desc = 'abcdefg';
+    desc.substr(2,4);
+    desc.substr(-4,2);
+
+    str.trim() 앞 뒤 공백제거
+    let desc = ' coding      ';
+    desc.trim();
+
+    str.repeat(n) :n번 반복
+    let hello = "hello!"
+    hello.repeat(3); //hello!hello!hello!
+
+    문자열 비교
+    1 < 3 true
+    "a" < "b" true 
+    "a".codePointAt(0) //97
+    String.fromCodePoint(97) // "a"
+    
+    let list = [
+      "01. 들어가며",
+      "02. JS의 역사",
+      "03. 자료형",
+      "04. 함수",
+      "05. 배열",
+    ]
+    let newList = [];
+    for(let i of list){
+      newList.push(i.slice(4));
+    }
+    console.log(newList);
+
+    const answer = list.map((e)=>e.slice(4));
+    console.log(answer);
+
+
+    //금칙어 : 콜라 //내가 막씀;;
+    function hasCola(str){
+      // (str.indexOf('콜라') > -1) ? console.log('금칙어가 있습니다') : console.log('통과 : ' + str)
+      //includes 활용 
+      //문자가 있으면 true
+      //없으면 false를 반환
+      (str.includes('콜라')) ? console.log('금칙어가 있습니다') : console.log('통과 : ' + str)
+    }
+    hasCola('사이다콜라');
+    hasCola('콜라');
+    hasCola('사이다콜리');
+    hasCola('사이다골라');
+    hasCola('사이다쿌라');
 
 
 
   </pre>
 
   <script>
+    let desc = 'abcdefg';
+    //str.slice n부터 m까지 
+    console.log(desc.slice(2)) //cdefg
+    console.log(desc.slice(0,5)) //abcde
+    console.log(desc.slice(2,-2)) //gf ㅠㅠ // cde
+    //str.substring n부터 m 사이
+    console.log(desc.substring(2,5));//cde
+    console.log(desc.substring(5,2));//cde
+    //str.substr n부터 m개
+    console.log(desc.substr(2,4)); //cdef
+    console.log(desc.substr(-4,2)); // de
 
+    let hello = "hello!"
+    hello.repeat(3); //hello!hello!hello!
+
+
+    //예제 글 제목만 뽑아내서 배열에 //내가 막씀;;
+    let list = [
+      "01. 들어가며",
+      "02. JS의 역사",
+      "03. 자료형",
+      "04. 함수",
+      "05. 배열",
+    ]
+    console.log('*for문 push 사용')
+    let newList = [];
+    for(let i of list){
+      newList.push(i.slice(4));
+    }
+    console.log(newList);
+
+    console.log('*map사용')
+    const answer = list.map((e)=>e.slice(4));
+    console.log(answer);
+
+    
+    //금칙어 : 콜라 //내가 막씀;;
+    function hasCola(str){
+      // (str.indexOf('콜라') > -1) ? console.log('금칙어가 있습니다') : console.log('통과 : ' + str)
+      //includes 활용 
+      //문자가 있으면 true
+      //없으면 false를 반환
+      (str.includes('콜라')) ? console.log('금칙어가 있습니다') : console.log('통과 : ' + str)
+    }
+    hasCola('사이다콜라');
+    hasCola('콜라');
+    hasCola('사이다콜리');
+    hasCola('사이다골라');
+    hasCola('사이다쿌라');
 
   </script>
 </body>
