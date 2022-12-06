@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>class / 프라미스와 async, await</title>
+</head>
+<body>
+  <pre>
+    정적 메서드와 정적 프로퍼티
+    정적이란? 메모리 위치가 변하지 않는다
+    static class안에서 존재
+    instance 는 static 메소드를 접근 불가
+
+
+    private, protected 프로퍼티와 메서드
+    사람을 생각하면됨
+    겉에서 보이는것들
+    숨겨야하는것들
+    js는 = public
+
+    protected _ 붙임
+    private #붙임
+
+    private 필드는 this[name]로 사용할 수 없습니다.
+
+    내장 클래스 확장하기
+
+    'instanceof'로 클래스 확인하기
+    instanceof class로 만들어진걸 아는데 어떤 클래스냐 true false
+
+    믹스인
+    믹스인은 특정 행동을 실행해주는 메서드를 제공하는데 단독으로 쓰이지 않고 다른 클래스에 행동을 더해주는 용도로 사용됩니다.
+
+    'try..catch'와 에러 핸들링
+
+    try..catch는 동기적으로 동작합니다.
+    setTimeout처럼 ‘스케줄 된(scheduled)’ 코드에서 발생한 예외는 try..catch에서 잡아낼 수 없습니다.
+
+
+    프라미스와 async, await
+
+    동기
+    비동기 : setTimeout 처럼
+
+    먹통 예방을 위해 비동기가 필요
+
+
+
+  </pre>
+
+  <script>
+    // class A {
+    //   name = 'a';
+    // }
+    // let a = new A();
+    // a
+    // class A {
+    //   #name = 'a';
+    //   get name(){
+    //     return this.#name;
+    //   }
+    // }
+    // let a = new A();
+
+    function getData(work, callback){
+      let data;
+      setTimeout(()=>{
+        console.log(work + "중입니다");
+        data = work + "데이터";
+        console.log(work + "완료 되었습니다");
+        callback(data);
+      },1000);
+      return data;
+    }
+    
+    getData("회원조회", function(data){
+      console.log(data);
+      if(data === "회원조회데이터"){
+        getData("상품조회", function(data){
+          console.log(data);
+          if(data === "상품조회데이터"){
+            getData("쿠폰사용조회", function(data){
+              console.log(data);
+              if(data === "쿠폰사용조회데이터"){
+                getData("결제조회", function(data){
+                  console.log(data);
+                });
+              }else{
+                console.log("구매한 상품이 없습니다.");
+              }
+            });
+          }
+        });
+      }
+    });
+
+    // function getData(work, callback) {
+    //     let data;
+    //     setTimeout(()=>{
+    //         console.log('#' + work + ' 중입니다.');
+    //         data = work + '데이타';
+    //         console.log('#' + work + ' 완료 되었습니다.');
+    //         callback(data);
+    //     }, 1000);
+    //     return data;
+    // }
+
+    // getData('회원조회', function(data){
+    //     console.log(data);
+    //     if(data==='회원조회데이타') {
+    //         getData('상품조회', function(data){
+    //             console.log(data);
+    //             if(data==='상품조회데이타') {
+    //                 getData('쿠폰사용조회', function(data){
+    //                     console.log(data);
+    //                     if(data==='쿠폰사용데이타') {
+    //                         getData('결제조회', function(data){
+    //                             console.log(data);
+    //                         });
+    //                     } else {
+    //                         console.log('구매한 상품이 없습니다.');
+    //                     }
+    //                 });
+    //             } else {
+    //                 console.log('구매한 상품이 없습니다.');
+    //             }
+    //         });
+    //     }
+    // });
+
+    // let asyncProc = [
+    //     {work: '회원조회', callback:function(){console.log('회원조회기능'); return true;}},
+    //     {work: '상품조회', callback:function(){console.log('상품조회기능'); return true;}},
+    //     {work: '쿠폰조회', callback:function(){console.log('쿠폰조회기능'); return true;}}
+    // ];
+
+    // function asyncFunc(asyncProc, getData) {
+    //     let f = function() {
+    //         let item = asyncProc.shift();
+    //         if(item) {
+    //             getData(item.work, (data)=>{
+    //                 if(item.callback(data)) f();
+    //             });
+    //         }
+    //     };
+
+    //     f();
+    // }
+
+    // asyncFunc(asyncProc, getData);
+
+  </script>
+</body>
+</html>

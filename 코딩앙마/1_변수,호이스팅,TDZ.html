@@ -23,6 +23,38 @@
 
     *호이스팅 : 스코프 내부 어디서든 변수 선언은 최상위에 선언된 것 처럼 행동
     호이스팅은 스코프 단위로 일어남
+
+    함수 선언식과 표현식의 차이점
+    함수선언식은 호이스팅 영향을 받지만 
+    함수 표현식은 호이스팅에 영향을 받지 않는다
+    함수 선언식은 코드를 구현한 위치와 관계없이 자바스르크립트의 특징인
+    호이스팅에 따라 브라우저가 자바스크립트를 해석할때 위로 끌어 올려진다
+
+    *호이스팅 : 인터프리터가 변수와 함수의 메모리 공간을 선언전에 미리 할당하는것
+
+    var로 선언한 변수의 경우 호이스팅 시 undefined로 변수를 초기화
+    반면 let과 const 로 선언한 변수의 경우 호이스팅 시 변수를 초기화 하지 않습니다
+
+    인터프리터(해석기)가 변수와 함수의 메모리 공간을 선언전에 미리 할당 
+
+    함수선언문
+    function catName(name) {
+      console.log("제 고양이의 이름은 " + name + "입니다");
+    }
+    catName("호랑이");
+
+    함수표현식
+    const catName = function (name){
+      console.log("제 고양이의 이름은 " + name + " 입니다")
+    }
+    catName("호랑이"); 
+
+    함수 표현식의 장점
+    함수표현식이 호이스팅에 영향을 받지 않는 다는 특징 
+    이외에도 함수 선언식보다 유용하게 쓰이는 경우는 다음과 같다
+    - 클로져로 사용
+    - 콜백으로 사용(다른 함수의 인자로 넘길 수 있음)
+
     
     let과 const는 tdz때문에 안됨 temporal dead zone
 
@@ -52,8 +84,23 @@
     let과 const 사용 권장
     예측 가능한 결과와 버그 줄임
 
+
+
   </pre>
   <script>
+    // 함수선언문
+    function catName(name) {
+      console.log("제 고양이의 이름은 " + name + "입니다");
+    }
+    catName("호랑이");
+
+    // 함수표현식
+    // const catName = function (name){
+    //   console.log("제 고양이의 이름은 " + name + " 입니다")
+    // }
+    // catName("호랑이"); 
+
+
     var name;
     console.log(name);
     name = 'Mike';
@@ -68,7 +115,7 @@
     function add(num1,num2){
       return num1 + num2;
     }
-    const result = add(2,3);
+    const result = add(2,5);
     console.log(result);
 
     function add2(num3,num4){
