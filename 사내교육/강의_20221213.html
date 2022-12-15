@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프라미스 만들기 My Promise</title>
+</head>
+
+<body>
+  <pre>
+
+  </pre>
+  <script>
+
+    // console.log(1);
+    // let promise = new Promise(function(resolve, reject) {
+    //     console.log(2);
+    //     setTimeout(() => {
+    //         console.log(4);
+    //         resolve("완료!");
+    //         console.log(5);
+    //     }, 1000);
+    //     console.log(3)
+    // });
+    // console.log(6);
+
+    // promise.then(
+    //   (result) => {
+    //       console.log(8);
+    //       console.log(result);
+    //   }, // 1초 후 "완료!"를 출력
+    //   (error) => {
+    //       console.log(9);
+    //       console.log(error);
+    //   }// 실행되지 않음
+    // );
+    // console.log(7);
+
+    function sample(SamplePromise) {
+      console.log(`${SamplePromise.name} : 1`);
+      let promise = new SamplePromise(function (resolve, reject) {
+        console.log(`${SamplePromise.name} : 2`);
+        setTimeout(() => {
+          console.log(`${SamplePromise.name} : 4`);
+          resolve(`${SamplePromise.name} 완료!`);
+          console.log(`${SamplePromise.name} : 5`);
+        }, 1000);
+        console.log(`${SamplePromise.name} : 3`);
+      });
+      console.log(`${SamplePromise.name} : 6`);
+
+      setTimeout(() => {
+        promise.then(
+          (result) => {
+            console.log(`${SamplePromise.name} : 8`);
+            console.log(result);
+          }, // 1초 후 "완료!"를 출력
+          (error) => {
+            console.log(`${SamplePromise.name} : 9`);
+            console.log(error);
+          }// 실행되지 않음
+        );
+        console.log(`${SamplePromise.name} : 7`);
+      }, 1500);
+    }
+
+    class MyPromise {
+      #resolveThen;
+      #rejectThen;
+      #state = 'pending';
+      #result = undefined;
+      #resolve = (param) => {
+        if (this.#state === 'pending') {
+          this.#state = 'fulfilled'
+          this.#result = param;
+          this.#callResolveThen();
+        }
+      };
+      #callResolveThen = () => {
+        if (this.#resolveThen) {
+          queueMicrotask(() => {
+            this.#resolveThen(this.#result);
+          });
+        }
+      };
+      #reject = (param) => {
+        if (this.#state === 'pending') {
+          this.#state = 'rejected'
+          this.#result = param;
+          this.#callRejectThen();
+        }
+      };
+      #callRejectThen = () => {
+        if (this.#rejectThen) {
+          queueMicrotask(() => {
+            this.#rejectThen(this.#result);
+          });
+        }
+      };
+      constructor(f) {
+        try {
+          f(this.#resolve, this.#reject);
+        } catch (e) {
+          this.#reject(e);
+        }
+      }
+      then(resolveThen, rejectThen) {
+        this.#resolveThen = resolveThen;
+        this.#rejectThen = rejectThen;
+        if (this.#state === 'fulfilled') {
+          this.#callResolveThen();
+        } else if (this.#state === 'rejected') {
+          this.#callRejectThen();
+        }
+      }
+      catch(rejectThen){
+        this.#rejectThen = rejectThen;
+        if (this.#state === 'rejected') {
+          this.#callRejectThen();
+        }
+      }
+    }
+
+    sample(Promise);
+    setTimeout(()=>{
+      sample(MyPromise);
+    }, 3000);
+
+
+
+
+    // //같은 표현
+    // promise.then(
+    //   result => alert(result), // 실행되지 않음
+    //   error => alert(error) // 1초 후 "Error: 에러 발생!"을 출력
+    // );
+
+    // promise.then(alert); 
+      
+  </script>
+</body>
+
+</html>

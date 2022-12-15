@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프라미스 기능 구현</title>
+</head>
+<body>
+  <pre>
+    let promise = new Promise(function(resolve, reject) {
+      setTimeout(() => resolve("완료!"), 1000);
+    });
+    
+    // resolve 함수는 .then의 첫 번째 함수(인수)를 실행합니다.
+    promise.then(
+      result => alert(result), // 1초 후 "완료!"를 출력
+      error => alert(error) // 실행되지 않음
+    );
+
+    console.log(1);
+    let promise = new Promise(function(resolve, reject) {
+        console.log(2);
+        setTimeout(() => {
+            console.log(4);
+            resolve("완료!");
+            console.log(5);
+        }, 1000);
+        console.log(3)
+    });
+    console.log(6);
+
+    promise.then(
+      (result) => {
+          console.log(8);
+          console.log(result);
+      }, // 1초 후 "완료!"를 출력
+      (error) => {
+          console.log(9);
+          console.log(error);
+      }// 실행되지 않음
+    );
+    console.log(7);
+  </pre>
+
+  <script>
+    // //순서기억
+    console.log(1);
+    let promise = new Promise(function(resolve, reject) {
+        console.log(2);
+        setTimeout(() => {
+            console.log(4);
+            resolve("완료!");
+            console.log(5);
+        }, 1000);
+        console.log(3)
+    });
+    console.log(6);
+
+    promise.then(
+      (result) => {
+          console.log(8);
+          console.log(result);
+      }, // 1초 후 "완료!"를 출력
+      (error) => {
+          console.log(9);
+          console.log(error);
+      }// 실행되지 않음
+    );
+    console.log(7);
+
+    /////////////////////
+
+    //12367458
+    // class MyPromise{
+    //   #state = 'pending';
+    //   constructor(f){
+    //     const resolve = (param)=>{
+    //       this.#state = 'fulfilled'
+    //       queueMicrotask(()=>this.res(param));
+    //     }
+    //     const reject = (param)=>{
+    //       this.#state = 'rejected'
+    //       queueMicrotask(()=>this.rej(param));
+    //     }
+    //     f(resolve, reject);
+    //   }
+    //   then(res,rej){
+    //     this.res = res;
+    //     this.rej = rej;
+    //   }
+    // }
+
+
+    // class MyPromise {
+    //   constructor(f){
+    //     // const resolve = function(param){ //시점 때문에 람다 써야함
+    //     const resolve = (param) => { //시점 때문에 람다 써야함
+    //       this.state = 'fulfilled';
+    //       queueMicrotask(()=>{
+    //         this.res(param);
+    //       });
+    //     }
+    //     const reject = (param)=>{
+    //       queueMicrotask(()=>{
+    //         this.rej(param);
+    //       });
+    //     }
+    //     f(resolve,reject);
+    //   }
+    //   then(res,rej){//바로 시작하면 안되니 기록해둠~
+    //     this.res = res;
+    //     this.rej = rej;
+    //   }
+    // }
+    setTimeout(()=>{
+      console.log('##################');
+      console.log(11);
+      let myPromise = new MyPromise(function(resolve, reject) {
+          console.log(12);
+          setTimeout(() => {
+              console.log(14);
+              resolve("myPromise 완료!");
+              reject(new Error('에러'));
+              console.log(15);
+          }, 1000);
+          console.log(13)
+      });
+      console.log(16);
+  
+      myPromise.then(
+        (result) => {
+            console.log(18);
+            console.log(result);
+        }, // 1초 후 "완료!"를 출력
+        (error) => {
+            console.log(19);
+            console.log(error);
+        }// 실행되지 않음
+      );
+      console.log(17);
+
+    },3000)
+  </script>
+</body>
+</html>

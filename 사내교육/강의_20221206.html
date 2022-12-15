@@ -64,38 +64,6 @@
     // }
     // let a = new A();
 
-    function getData(work, callback){
-      let data;
-      setTimeout(()=>{
-        console.log(work + "중입니다");
-        data = work + "데이터";
-        console.log(work + "완료 되었습니다");
-        callback(data);
-      },1000);
-      return data;
-    }
-    
-    getData("회원조회", function(data){
-      console.log(data);
-      if(data === "회원조회데이터"){
-        getData("상품조회", function(data){
-          console.log(data);
-          if(data === "상품조회데이터"){
-            getData("쿠폰사용조회", function(data){
-              console.log(data);
-              if(data === "쿠폰사용조회데이터"){
-                getData("결제조회", function(data){
-                  console.log(data);
-                });
-              }else{
-                console.log("구매한 상품이 없습니다.");
-              }
-            });
-          }
-        });
-      }
-    });
-
     // function getData(work, callback) {
     //     let data;
     //     setTimeout(()=>{
@@ -106,6 +74,51 @@
     //     }, 1000);
     //     return data;
     // }
+
+    // function getData(work, callback){
+    //   let data;
+    //   setTimeout(()=>{
+    //     console.log(work + "중입니다");
+    //     data = work + "데이터";
+    //     console.log(work + "완료 되었습니다");
+    //     callback(data);
+    //   },1000);
+    //   return data;
+    // }
+
+    // function getData(work, callback){
+    //   let data;
+    //   setTimeout(()=>{
+    //     console.log(work + "조회중입니다");
+    //     data = work + "데이터";
+    //     callback(data);
+    //   },1000);
+    //   return data;
+    // }
+
+    // getData('회원',(data)=>{
+    //   console.log(data);
+    //   if(data === "회원데이터"){
+    //     getData('상품',(data)=>{
+    //       console.log(data);
+    //       if(data === "상품데이터"){
+    //         getData('쿠폰',(data)=>{
+    //           console.log(data);
+    //           if(data === "쿠폰데이터"){
+    //             getData('결제',(data)=>{
+    //               console.log(data);
+    //               if(data === "결제데이터"){
+    //                 console.log("결제가 완료되었습니다.")
+    //               }else{
+    //                 console.log('구매한 상품이 없습니다.');
+    //               }
+    //             })
+    //           }
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
 
     // getData('회원조회', function(data){
     //     console.log(data);
@@ -129,13 +142,66 @@
     //         });
     //     }
     // });
+    
+    // getData("회원조회", function(data){
+    //   console.log(data);
+    //   if(data === "회원조회데이터"){
+    //     getData("상품조회", function(data){
+    //       console.log(data);
+    //       if(data === "상품조회데이터"){
+    //         getData("쿠폰사용조회", function(data){
+    //           console.log(data);
+    //           if(data === "쿠폰사용조회데이터"){
+    //             getData("결제조회", function(data){
+    //               console.log(data);
+    //             });
+    //           }else{
+    //             console.log("구매한 상품이 없습니다.");
+    //           }
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
 
+    function getData(work, callback){
+      let data;
+      setTimeout(()=>{
+        console.log(work + "조회중입니다");
+        data = work + "데이터";
+        callback(data);
+      },1000);
+      return data;
+    }
+
+    let asyncProc = [
+      {work : "회원", callback : (data)=>{console.log(data); return true;}},
+      {work : "상품", callback : (data)=>{console.log(data); return true;}},
+      {work : "쿠폰", callback : (data)=>{console.log(data); return true;}},
+      {work : "결제", callback : (data)=>{console.log(data); return true;}},
+    ];
+
+    function asyncFunc(asyncProc, getData){
+      const f = ()=>{
+        let item = asyncProc.shift();
+        if(item){
+          getData(item.work, (data)=>{
+            if(item.callback(data)) f(); //?
+          })
+        }
+      }
+      f();
+    }
+    
+    asyncFunc(asyncProc, getData);
+    
+    
     // let asyncProc = [
     //     {work: '회원조회', callback:function(){console.log('회원조회기능'); return true;}},
     //     {work: '상품조회', callback:function(){console.log('상품조회기능'); return true;}},
     //     {work: '쿠폰조회', callback:function(){console.log('쿠폰조회기능'); return true;}}
     // ];
-
+    
     // function asyncFunc(asyncProc, getData) {
     //     let f = function() {
     //         let item = asyncProc.shift();
@@ -145,11 +211,34 @@
     //             });
     //         }
     //     };
-
     //     f();
     // }
 
     // asyncFunc(asyncProc, getData);
+
+    //교재 예제
+    // function loadScript(src){
+    //   let script = document.createElement('script');
+    //   script.src = src;
+    //   document.head.append(script);
+    // }
+    // function loadScript(src, callback){
+    //   let script = document.createElement('script');
+    //   script.src = src;
+    //   script.onload = ()=>callback(script);
+    //   document.head.append(script);
+    // }
+    // loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script)=>{
+    //   console.log(`${script.src}을 로딩했습니다. 이젠 다음 스크립트를 로딩합니다.`);
+    //   loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script)=>{
+    //     console.log(`두 번째 스크립트를 성공적으로 로딩했습니다.`);
+    //     loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script)=>{
+    //       console.log(`세 번째 스크립트를 성공적으로 로딩했습니다.`);
+    //     })
+    //   })
+    // })
+
+
 
   </script>
 </body>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPromise</title>
+</head>
+<body>
+  <pre>
+    Promise 복습
+
+    MyPromise 만들기
+
+  </pre>
+
+  <script>
+    //Promise
+    console.log(1);
+    const promise = new Promise((resolve, reject) => {
+      console.log(2);
+      setTimeout(() => {
+        console.log(4);
+        resolve("완료!");
+        reject("에러!");
+        console.log(5);
+      }, 1000);
+      console.log(3);
+    });
+    console.log(6);
+    promise.then(
+      (result) => {
+        console.log(8);
+        console.log(result);
+      },
+      (error) => {
+        console.log(9);
+        console.log(error);
+      }
+    )
+    console.log(7);//12367458
+
+
+    //MyPromise
+    class MyPromise {
+      #resolveThen;
+      #rejectThen;
+      #state = 'pending';
+      #result = undefined;
+
+      constructor(f) {
+        let resolve = ((param) => {
+          if(this.#state === 'pending'){
+            this.#state = 'fulfilled';
+            this.#result = param;
+            queueMicrotask(() => {
+              this.#resolveThen(param)
+            });
+          }
+        });
+        let reject = ((param) => {
+          if(this.#state === 'pending'){
+            this.#state = 'rejected';
+            this.#result = param;
+            queueMicrotask(() => {
+              this.#rejectThen(param)
+            });
+          }
+        })
+        f(resolve, reject);
+      }
+      then(resolveThen, rejectThen) {
+        this.#resolveThen = resolveThen;
+        this.#rejectThen = rejectThen;
+      }
+    }
+    let myPromise;
+    setTimeout(() => {
+      console.log("=====================");
+      console.log(11);
+      myPromise = new MyPromise((resolve, reject) => {
+        console.log(12);
+        setTimeout(() => {
+          console.log(14);
+          resolve("완료!")
+          reject(new Error("에러!"))
+          console.log(15);
+        }, 1000)
+        console.log(13);
+      })
+      console.log(16);
+      myPromise.then(
+        (result) => {
+          console.log(18);
+          console.log(result)
+        },
+        (error) => {
+          console.log(19);
+          console.log(error)
+        }
+      )
+      console.log(17);
+    }, 3000);
+
+
+  </script>
+</body>
+</html>

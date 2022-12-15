@@ -8,7 +8,30 @@
 </head>
 <body>
   <pre>
-    생성자 함수 
+
+    생성자 함수와 class의 차이
+
+    01. 클래스 생성자는 new와 함께 호출하지 않으면 에러가 발생한다.
+    // class 생성
+    class ClassName{
+      constructor(){}
+    }
+    // 생성자 함수 생성
+    function ConsName(){}
+    // 호출
+    ClassName(); // VM20:1 Uncaught TypeError: Class constructor ClassName cannot be invoked without 'new' at < anonymous >:1:1
+    ConsName();
+
+    02. 클래스 메서드는 열거할 수 없다.
+    클래스의 prototype 프로퍼티에 추가된 메서드 전체의 enumerable 플래그는 false이다.
+    - enumerable플래그는 for...in으로 객체 순환을 할 때, key의 값의 반환 유무를 뜻한다.
+    - for...in으로 객체 순환을 할 때, prototype 프로퍼티에 저장된 함수 값을 반환하는 것에서 차이가 발생한다.
+    생성자 함수 => 함수 반환O
+    class => 함수 반환 X
+
+
+    
+    생성자 함수
     
     Class 함수
 
@@ -24,6 +47,34 @@
   </pre>
 
   <script>
+    
+    //생성자함수를 class로
+    //예제
+    function Student(name, age, height) {
+      this.name = name;
+      this.age = age;
+      this.height = height;
+    }
+    Student.prototype.sayHi = function () {
+      console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
+    }
+    const Jane = new Student("Jane", "33", "170");
+    Jane.sayHi();
+    //바꾸기
+    class Student2 {
+      constructor(name, age, height) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+      }
+      sayHi() {
+        console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
+      }
+    }
+    const anna = new Student2("anna", "22", "160");
+    anna.sayHi();
+
+
 
     //함수 선언식
     function User(name, age){

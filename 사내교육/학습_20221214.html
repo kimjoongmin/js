@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise 만들기</title>
+</head>
+<body>
+  <pre>
+
+
+  </pre>
+
+  <script>
+    //promise
+    function sample(samplePromise){
+      console.log(`${samplePromise.name} : 1`)
+      const promise = new Promise((resolve, reject) => {
+        console.log(`${samplePromise.name} : 2`)
+        setTimeout(() => {
+          console.log(`${samplePromise.name} : 4`)
+          resolve(`${samplePromise.name} : 완료!`)
+          reject(`${samplePromise.name} : 에러!`)
+          console.log(`${samplePromise.name} : 5`)
+        }, 1000)
+        console.log(`${samplePromise.name} : 3`)
+      })
+      console.log(`${samplePromise.name} : 6`)
+      setTimeout(()=>{
+        promise.then(
+          (result) => {
+            console.log(`${samplePromise.name} : 8`)
+            console.log(result)
+          },
+          (error) => {
+            console.log(`${samplePromise.name} : 9`)
+            console.log(error)
+          }
+        )
+        console.log(`${samplePromise.name} : 7`)
+      },1500);
+    }
+
+    //myPromise
+    class MyPromise {
+      #resolveThen;
+      #rejectThen;
+      #state = 'pending';
+      #result = undefined;
+      constructor(f) {
+        const resolve = (param) => {
+          if (this.#state === 'pending') {
+            this.#state = 'fulfilled';
+            this.#result = param;
+            queueMicrotask(() => {
+              this.#resolveThen(param)
+            })
+          }
+        }
+        const reject = (param) => {
+          if (this.#state === 'pending') {
+            this.#state = 'rejected';
+            this.#result = param;
+            queueMicrotask(() => {
+              this.#rejectThen(param)
+            })
+          }
+        }
+        f(resolve, reject)
+      }
+      then(resolveThen, rejectThen) {
+        this.#resolveThen = resolveThen;
+        this.#rejectThen = rejectThen;
+      }
+      catch(rejectThen) {
+        if (this.#state === 'pending') {
+          this.#state = 'rejected';
+          this.#result = param;
+          queueMicrotask(() => {
+            this.#rejectThen(param)
+          })
+        }
+      }
+    }
+    
+    // console.log("========================")
+    // console.log(11)
+    // const myPromise = new MyPromise((resolve, reject) => {
+    //   console.log(12)
+    //   setTimeout(() => {
+    //     console.log(14)
+    //     resolve("myPromise 완료!")
+    //     reject("fmyPromise 에러!")
+    //     console.log(15)
+    //   }, 1000)
+    //   console.log(13)
+    // })
+    // console.log(16)
+    // myPromise.then(
+    //   (result) => {
+    //     console.log(18)
+    //     console.log(result)
+    //   },
+    //   (error) => {
+    //     console.log(19)
+    //     console.log(error)
+    //   }
+    // )
+    // console.log(17)
+    
+
+    sample(Promise);
+    setTimeout(() => {
+      sample(MyPromise)
+    }, 3000);
+  </script>
+
+
+</body>
+</html>

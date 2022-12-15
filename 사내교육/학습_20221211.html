@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상속,프로토타입,클래스,프로미스,async,await</title>
+</head>
+<body>
+  <pre>
+    
+    상속 프로토타입
+    클래스 : new 없이 실행할수 없음
+    프로미스
+    const pr = new Promise((resolve, reject)=>{
+      
+    });
+    pr.then();
+
+    async, 
+    async function order(){
+
+    }
+    await
+    async function order(){
+      const result1 = await p1();
+      const result2 = await p2(result1);
+      const result3 = await p2(result2);
+      console.log(result3)
+      console.log("끝")
+    }
+
+  </pre>
+  <script>
+    // const car = {
+    //   wheels : 4,
+    //   drive(){
+    //     console.log("drive..")
+    //   }
+    // }
+
+    // const bmw = {
+    //   color: "red",
+    //   navigation : 1,
+    //   // wheels:4,
+    //   // drive(){
+    //   //   console.log("drive..")
+    //   // }
+    // }
+    // const benz = {
+    //   color: "white",
+    //   // wheels:4,
+    //   // drive(){
+    //   //   console.log("drive..")
+    //   // }
+    // }
+    // const audi = {
+    //   color: "black",
+    //   // wheels:4,
+    //   // drive(){
+    //   //   console.log("drive..")
+    //   // }
+    // }
+
+    // bmw.__proto__ = car;
+    // benz.__proto__ = car;
+    // audi.__proto__ = car;
+
+    // const x5 = {
+    //   color:"green",
+    //   name : "x5"
+    // }
+    // x5.__proto__ = bmw;
+
+    // for(let x in x5){
+    //   console.log(x)
+    // }
+
+    // console.log(x5)
+    // console.log(Object.keys(x5))
+    // console.log(Object.values(x5))
+
+    // //상속된 값과 아닌 값을 구분하려면 hasOwnProperty 사용
+    // for(let p in x5){
+      
+    //   if(x5.hasOwnProperty(p)){
+    //     console.log(`o :`,p)
+    //   }else{
+    //     console.log(`x :`,p)
+    //   }
+    // }
+    //객체가 직접 가지고 있는 property만 true를 반환
+
+    //생성자 함수ㅠㅠ
+    // const car = {
+    //   wheels : 4,
+    //   drive(){
+    //     console.log("drive..")
+    //   }
+    // }
+    // function Bmw (color) {
+    //   this.color = color;
+    //   // this.wheels = 4;
+    //   // this.drive = function(){
+    //   //   console.log("drive..")
+    //   // }
+    // }
+    // Bmw.prototype.wheels = 4;
+    // Bmw.prototype.drive = function(){
+    //   console.log("drive..")
+    // }
+
+    // const x5 = new Bmw("red");
+    // const z4 = new Bmw("white");
+
+    // // x5.__proto__ = car;
+    // // z4.__proto__ = car;
+
+    // const car = {
+    //   wheels : 4,
+    //   navigation : 1,
+    //   drive : function(){
+    //     console.log("drive.")
+    //   }
+    // }
+    // function Bmw(color){
+    //   // this.wheels = 4;
+    //   // this.navigation = 1;
+    //   // this.drive = function(){
+    //   //   console.log("drive.")
+    //   // }
+    //   this.color = color;
+    // }
+    // Bmw.prototype.wheels = 4;
+    // Bmw.prototype.navigation = 1;
+    // Bmw.prototype.drive = function(){
+    //   console.log("drive.")
+    // }
+
+    // const x5 = new Bmw('red');
+    // const m5 = new Bmw('white');
+
+    // // x5.__proto__ = car;
+    // // m5.__proto__ = car;
+
+    // function User(name, age) {
+    //   this.name = name;
+    //   this.age = age;
+    //   // this.showName = function(){
+    //   //   console.log(this.name);
+    //   // }
+    // }
+    // User.prototype.showName = function(){
+    //   console.log(this.name);
+    // }
+    // const mike = new User("Mike",20)
+    // console.log(mike);
+    // for(let x in mike){
+    //   console.log(x)
+    // }//class 함수와 상속 다름
+
+    // class User2 {
+    //   constructor(name, age){
+    //     this.name = name;
+    //     this.age = age;
+    //   }
+    //   showName(){
+    //     console.log(this.name)
+    //   }
+    // }
+    // const tom = new User2("Tom",15)
+    // console.log(tom)
+    // for(let p in tom){
+    //   console.log(p)
+    // }//생성자 함수와 상속 다름
+
+    // class Car {
+    //   constructor(color){
+    //     this.color = color;
+    //     this.wheels = 4;
+    //   }
+    //   drive(){
+    //     console.log("drive..")
+    //   }
+    //   stop(){
+    //     console.log("stop!!")
+    //   }
+    // }
+    // class Bmw extends Car{
+    //   constructor(color){ //동일한 인수 값 추가//오버라이딩
+    //     super(color);//super() 추가 //동일한 인수 값 추가
+    //     this.navigation = 1;
+    //   }
+    //   park(){
+    //     console.log("Park.")
+    //   }
+    //   stop(){
+    //     super.stop();//car에 stop을 사용 //오버라이딩
+    //     console.log("OFF.")
+    //   }
+    // }
+    // const x5 = new Bmw("white");
+    // console.log(x5.color)
+    // // console.log(x5.stop())
+
+    //promise
+    //resolve
+    // const pr  = new Promise((resolve, reject)=>{
+    //   setTimeout(()=>{
+    //     // resolve("ok");
+    //     reject(new Error("error..."));
+    //   },3000);
+    // });
+    // // pr.then(
+    // //   function(result){},
+    // //   function(err){}
+    // // );
+    // pr.then(
+    //   function(result){}
+    // ).catch(
+    //   function(err){}
+    // ).finally(
+    //   function(){
+    //     console.log("주문 끝")
+    //   }
+    // );
+
+    // const pr = new Promise((resolve, reject)=>{
+    //   setTimeout(()=>{
+    //     // resolve("ok");
+    //     reject(new Error("error..."))
+    //   },1000);
+    // });
+    // console.log("시작");
+    // pr.then((result)=>{
+    //   console.log(result)
+    // }).catch((err)=>{
+    //   console.log(err)
+    // }).finally(
+    //   function(){
+    //     console.log("끝")
+    //   }
+    // )
+
+    // //콜백 지옥 예제
+    // const f1 = function(callback){
+    //   setTimeout(()=>{
+    //     console.log("콜백 지옥: 1번 주문 완료")
+    //     callback();
+    //   },1000);
+    // }
+    // const f2 = function(callback){
+    //   setTimeout(()=>{
+    //     console.log("콜백 지옥: 2번 주문 완료")
+    //     callback();
+    //   },3000);
+    // }
+    // const f3 = function(callback){
+    //   setTimeout(()=>{
+    //     console.log("콜백 지옥: 3번 주문 완료")
+    //     callback();
+    //   },2000);
+    // }
+    // f1(function(){
+    //   f2(function(){
+    //     f3(function(){
+    //       console.log("콜백 지옥: 끝")
+    // console.log("----------------")
+    //     });
+    //   });
+    // });
+
+    //콜백 지옥 예제를 프라미스로
+    // const p1 = ()=>{
+    //   return new Promise((resolve, reject)=>{
+    //     setTimeout(()=>{
+    //       resolve("1번 주문 완료");
+    //     },1000)
+    //   });
+    // }
+    // const p2 = (message)=>{
+    //   console.log(message)
+    //   return new Promise((resolve, reject)=>{
+    //     setTimeout(()=>{
+    //       resolve("2번 주문 완료");
+    //     },3000)
+    //   });
+    // }
+    // const p3 = (message)=>{
+    //   console.log(message)
+    //   return new Promise((resolve, reject)=>{
+    //     setTimeout(()=>{
+    //       resolve("3번 주문 완료");
+    //     },2000)
+    //   });
+    // }
+    // console.log("시작");
+
+    // //프로미스 체이닝
+    // p1()
+    //   .then((resolve) => p2(resolve))
+    //   .then((resolve) => p3(resolve))
+    //   .then((resolve) => console.log(resolve))
+    //   .catch(console.log)
+    //   .finally(()=>{
+    //     console.log("끝")
+    //   });
+
+    // //Promise.all - 다 보여주거나 안보여주거나~
+    // console.time("Promise.all") 
+    // Promise.all([p1(),p2(),p3()]).then((resolve)=>{//Promise.race 
+    //   console.log(resolve);
+    //   console.timeEnd("Promise.all");
+    // });
+
+    //async
+    // async function getName1(){
+    //   // return "Mike";
+    //   return Promise.resolve("Tom")
+    // }
+    // getName1().then((name)=>{
+    //   console.log(name);
+    // })
+
+
+    // //await
+    // function getName(name){
+    //   return new Promise((resolve,reject)=>{
+    //     setTimeout(()=>{
+    //       resolve(name)
+    //     },1000)
+    //   })
+    // }
+    // async function showName(name){
+    //   const result = await getName("Mike");
+    //   console.log(result);
+    // }
+    // console.log("시작")
+    // showName();
+
+    //async 예제 적용
+    const p1 = ()=>{
+      return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve("1번 주문 완료");
+        },1000)
+      });
+    }
+    const p2 = (message)=>{
+      console.log(message)
+      return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve("2번 주문 완료");
+        },3000)
+      });
+    }
+    const p3 = (message)=>{
+      console.log(message)
+      return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve("3번 주문 완료");
+        },2000)
+      });
+    }
+    console.log("시작");
+    async function order(){
+      const result1 = await p1();
+      const result2 = await p2(result1);
+      const result3 = await p3(result2);
+      console.log(result3);
+      console.log("끝");
+    }
+    order();
+
+
+    </script>
+</body>
+</html>
