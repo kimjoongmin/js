@@ -14,15 +14,131 @@
     resolve = 성공
     reject = 실패
 
+    람다함수 부연설명
+    https://ponyozzang.tistory.com/452
+
     어떤 일이 완료되고 실행되는 함수를 callback 함수
 
     new Promise(), resolve 와 reject, catch 와 finally,
 
     Promise.all 과 Promise.race
 
+
+    promise 부연설명
+    https://valuefactory.tistory.com/213
+
+
   </pre>
 
   <script>
+    //문법
+    // const pr = new Promise((resolve,reject) => {
+    //   setTimeout(()=>{
+    //     resolve("문법 성공!")
+    //   },2000);
+    // });
+    // pr.then(
+    //   (result) => {
+    //     console.log(result);
+    //   }
+    // ).catch(
+    //   (error) => {
+    //     console.log(new Error("문법 에러!"))
+    //   }
+    // ).finally(
+    //   console.log("문법 주문완료!기다려주세요!")
+    // )
+
+
+    const p1 = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("프로미스 1번 주문 완료!")
+          reject("프로미스 1번 주문 실패!")
+        }, 1000);
+      })
+    }
+    const p2 = (message) => {
+      console.log(message)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("프로미스 2번 주문 완료!")
+          reject("프로미스 2번 주문 실패!")
+        }, 2000);
+      })
+    }
+    const p3 = (message) => {
+      console.log(message)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("프로미스 3번 주문 완료!")
+          reject("프로미스 3번 주문 실패!")
+        }, 1000);
+      })
+    }
+    console.log("주문 시작")
+    p1().then(p2)
+      .then(p3)
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err))
+      .finally(() => console.log("프로미스 전체 주문 완료"))
+
+    //콜백지옥
+    // const f1 = (callback) => {
+    //   setTimeout(() => {
+    //     console.log("콜백 1번 주문 완료!")
+    //     callback();
+    //   }, 1000);
+    // }
+    // const f2 = (callback) => {
+    //   setTimeout(() => {
+    //     console.log("콜백 2번 주문 완료!")
+    //     callback();
+    //   }, 3000);
+    // }
+    // const f3 = (callback) => {
+    //   setTimeout(() => {
+    //     console.log("콜백 3번 주문 완료!")
+    //     callback();
+    //   }, 2000);
+    // }
+    // f1(() => 
+    //   f2(() => 
+    //     f3(() => 
+    //       console.log("콜백 전체 주문 완료!")
+    //     )
+    //   )
+    // )
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // //판매자 코드
     // const pr = new Promise((resolve, reject) => {
     //   setTimeout(()=>{
