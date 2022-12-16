@@ -77,8 +77,14 @@
       })
     }
     console.log("주문 시작")
-    p1().then(p2)
-      .then(p3)
+    // p1().then(p2)
+    //   .then(p3)
+    //   .then((result) => console.log(result))
+    //   .catch((err) => console.log(err))
+    //   .finally(() => console.log("프로미스 전체 주문 완료"))
+      
+    p1().then((resolve)=>p2(resolve))
+      .then((resolve)=>p3(resolve))
       .then((result) => console.log(result))
       .catch((err) => console.log(err))
       .finally(() => console.log("프로미스 전체 주문 완료"))
