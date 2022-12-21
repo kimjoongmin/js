@@ -21,19 +21,20 @@
     Object.values(x5);
     객체 내장 프로퍼티는 상속된 값은 안나옴
 
-     for(i in x5){
-       console.log(i)
-     }
-     console.log('//직접 가지고 있는 프로퍼티 값을 확인하고 싶을때')
-     for(i in x5){
-       if(x5.hasOwnProperty(i)){
-         console.log('o',i)
-       }else{
-         console.log('x',i)
-       }
-     }
+    for(i in x5){
+      console.log(i)
+    }
+    console.log('//직접 가지고 있는 프로퍼티 값을 확인하고 싶을때')
+    
+    for(i in x5){
+      if(x5.hasOwnProperty(i)){
+        console.log('o',i)
+      }else{
+        console.log('x',i)
+      }
+    }
 
-     생성자함수
+    생성자함수
       
   </pre>
   <script>

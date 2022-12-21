@@ -92,27 +92,27 @@
     // }
 
 
-    // class MyPromise {
-    //   constructor(f){
-    //     // const resolve = function(param){ //시점 때문에 람다 써야함
-    //     const resolve = (param) => { //시점 때문에 람다 써야함
-    //       this.state = 'fulfilled';
-    //       queueMicrotask(()=>{
-    //         this.res(param);
-    //       });
-    //     }
-    //     const reject = (param)=>{
-    //       queueMicrotask(()=>{
-    //         this.rej(param);
-    //       });
-    //     }
-    //     f(resolve,reject);
-    //   }
-    //   then(res,rej){//바로 시작하면 안되니 기록해둠~
-    //     this.res = res;
-    //     this.rej = rej;
-    //   }
-    // }
+    class MyPromise {
+      constructor(f){
+        // const resolve = function(param){ //시점 때문에 람다 써야함
+        const resolve = (param) => { //시점 때문에 람다 써야함
+          this.state = 'fulfilled';
+          queueMicrotask(()=>{
+            this.res(param);
+          });
+        }
+        const reject = (param)=>{
+          queueMicrotask(()=>{
+            this.rej(param);
+          });
+        }
+        f(resolve,reject);
+      }
+      then(res,rej){//바로 시작하면 안되니 기록해둠~
+        this.res = res;
+        this.rej = rej;
+      }
+    }
     setTimeout(()=>{
       console.log('##################');
       console.log(11);

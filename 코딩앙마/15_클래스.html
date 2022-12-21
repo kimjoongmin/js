@@ -50,45 +50,45 @@
     
     //생성자함수를 class로
     //예제
-    function Student(name, age, height) {
-      this.name = name;
-      this.age = age;
-      this.height = height;
-    }
-    Student.prototype.sayHi = function () {
-      console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
-    }
-    const Jane = new Student("Jane", "33", "170");
-    Jane.sayHi();
+    // function Student(name, age, height) {
+    //   this.name = name;
+    //   this.age = age;
+    //   this.height = height;
+    // }
+    // Student.prototype.sayHi = function () {
+    //   console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
+    // }
+    // const Jane = new Student("Jane", "33", "170");
+    // Jane.sayHi();
 
     //바꾸기
-    class Student2 {
-      constructor(name, age, height) {
-        this.name = name;
-        this.age = age;
-        this.height = height;
-      }
-      sayHi() {
-        console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
-      }
-    }
-    const anna = new Student2("anna", "22", "160");
-    anna.sayHi();
+    // class Student2 {
+    //   constructor(name, age, height) {
+    //     this.name = name;
+    //     this.age = age;
+    //     this.height = height;
+    //   }
+    //   sayHi() {
+    //     console.log(`내 이름은 ${this.name} 이고, 나이는 ${this.age}살 입니다. 키는 ${this.height}cm 입니다.`)
+    //   }
+    // }
+    // const anna = new Student2("anna", "22", "160");
+    // anna.sayHi();
 
 
 
     //함수 선언식
-    function User(name, age){
-      this.name = name;
-      this.age = age;
-      // this.showName = function(){
-      //   console.log(this.name);
-      // }
-    }
-    User.prototype.showName = function(){
-      console.log(this.name);
-    }
-    const mike = new User("Mike","33");
+    // function User(name, age){
+    //   this.name = name;
+    //   this.age = age;
+    //   // this.showName = function(){
+    //   //   console.log(this.name);
+    //   // }
+    // }
+    // User.prototype.showName = function(){
+    //   console.log(this.name);
+    // }
+    // const mike = new User("Mike","33");
 
     //함수 표현식
     // const User = function(name, age){
@@ -103,16 +103,16 @@
     // }
     // const mike = new User("Mike","33");
 
-    class User2 {
-      constructor(name, age){
-        this.name = name;
-        this.age = age;
-      }
-      showName(){
-        console.log(this.name);
-      }
-    }
-    const tom = new User2("Tom","10");
+    // class User2 {
+    //   constructor(name, age){
+    //     this.name = name;
+    //     this.age = age;
+    //   }
+    //   showName(){
+    //     console.log(this.name);
+    //   }
+    // }
+    // const tom = new User2("Tom","10");
 
 
     // //생성자 함수
@@ -137,29 +137,29 @@
     // }
     // const tom = new User2("Tom","22");
 
-    class Car {
-      constructor(color){
-        this.color = color;
-        this.wheels = 4;
-      }
-      drive(){
-        console.log("drive..")
-      }
-      stop(){
-        console.log("stop!")
-      }
-    }
-    class Bmw extends Car{
-      constructor(color){ //생성자 오버라이딩 부모꺼 가져와야함
-        super(color);//생성자 오버라이딩 부모꺼 가져와야함
-        this.navigation = 1; //추가
-      }
-      stop(){//부모에도 있는 메소드 
-        super.stop() //부모꺼도 호출하려면 super
-        console.log("off")
-      }
-    }
-    const x5 = new Bmw("black")
+    // class Car {
+    //   constructor(color){
+    //     this.color = color;
+    //     this.wheels = 4;
+    //   }
+    //   drive(){
+    //     console.log("drive..")
+    //   }
+    //   stop(){
+    //     console.log("stop!")
+    //   }
+    // }
+    // class Bmw extends Car{
+    //   constructor(color){ //생성자 오버라이딩 부모꺼 가져와야함
+    //     super(color);//생성자 오버라이딩 부모꺼 가져와야함
+    //     this.navigation = 1; //추가
+    //   }
+    //   stop(){//부모에도 있는 메소드 
+    //     super.stop() //부모꺼도 호출하려면 super
+    //     console.log("off")
+    //   }
+    // }
+    // const x5 = new Bmw("black")
 
 
     //car class 만들어보기
@@ -201,6 +201,63 @@
     // }
     // const z4 = new Bmw('white');
 
+
+
+
+
+
+
+    // function Student(name, age, height){
+    //   this.name = name;
+    //   this.age = age; 
+    //   this.height = height;
+    //   this.sayHello = ()=>{
+    //     console.log(`내 이름은 ${this.name}입니다. 나이는 ${this.age}살 이고, 키는 ${this.height}cm 입니다.`);
+    //   }
+    // }
+    // const Mike = new Student("Mike",22,180)
+    // const Jane = new Student("Jane",20,170)
+
+    // Mike.sayHello();
+    // Jane.sayHello();
+
+    // class Student2 {
+    //   constructor(name, age, height){
+    //     this.name = name;
+    //     this.age = age; 
+    //     this.height = height; 
+    //   }
+    //   sayHello(){
+    //     console.log(`내 이름은 ${this.name}입니다. 나이는 ${this.age}살 이고, 키는 ${this.height}cm 입니다.`);
+    //   }
+    // }
+    // const Tom = new Student2("Tom",55,188)
+    // Tom.sayHello();
+
+    class Car {
+      constructor(color){
+        this.wheels = 4;
+        this.color = color;
+      }
+      drive(){
+        console.log("drive..")
+      }
+      stop(){
+        console.log("stop!")
+      }
+    }
+    class Bmw extends Car {
+      constructor(color){
+        super(color);
+        this.navigation = 1;
+      }
+      stop(){
+        super.stop();
+        console.log("off.");
+      }
+    }
+    const x5 = new Bmw("black");
+    
   </script>
 </body>
 </html>

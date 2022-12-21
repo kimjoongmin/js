@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <pre>
+
+    개발은 잘 찢어놔서 의존성이 없게~
+    디펜던시를 줄여야함
+    함수를 많이 만들어야함 
+    각자 독립된 일을 할 수 있게..
+
+    프로미스 사용하는 이유
+    비동기에 비동기를 간단히
+
+    then은 프로미스를 반환
+
+    catch 부분 소스정리
+
+  </pre>
+
+  <script>
+    //then 체이닝
+    function sample(SamplePromise) {
+      console.log(`${SamplePromise.name} : 1`);
+      let promise = new SamplePromise(function (resolve, reject) {
+        console.log(`${SamplePromise.name} : 2`);
+        setTimeout(() => {
+          console.log(`${SamplePromise.name} : 4`);
+          resolve(`${SamplePromise.name} resolve`);
+          console.log(`${SamplePromise.name} : 5`);
+        }, 1000);
+        console.log(`${SamplePromise.name} : 3`);
+      });
+      console.log(`${SamplePromise.name} : 6`);
+
+      promise.then(
+        (p) => {
+          console.log(`${SamplePromise.name} then1 : ${p}`);
+          return 2;
+        }
+      ).then(
+        (p) => {
+          console.log(`${SamplePromise.name} then2: ${p}`);
+          return new SamplePromise((resolve, reject) => {
+            setTimeout(() => {
+              resolve(3);
+            }, 1000)
+          });
+        }
+      ).then(
+        (p) => {
+          console.log(`${SamplePromise.name} then3: ${p}`);
+        }
+      );
+      console.log(`${SamplePromise.name} : 7`);
+    }
+
+    class MyPromiseNode {
+      constructor(resolveThen, rejectThen, nextPromise) {
+        this.resolveThen = resolveThen;
+        this.rejectThen = rejectThen;
+        this.nextPromise = nextPromise;
+      }
+    }
+
+    class MyPromise {
+      #node = undefined;
+      #resolveThen = undefined;
+      #rejectThen = undefined;
+      #state = 'pending';
+      #result = undefined;
+      #resolve = (param) => {
+        if (this.#state === 'pending') {
+          this.#state = 'fulfilled'
+          this.#result = param;
+          this.#callResolveThen();
+        }
+      };
+      #callResolveThen = () => {
+        //if (this.#resolveThen) {
+        if (this.#node?.resolveThen) {
+          queueMicrotask(() => {
+            //this.#resolveThen(this.#result);
+            this.#node.resolveThen(this.#result);
+          });
+        }
+      };
+      #reject = (param) => {
+        if (this.#state === 'pending') {
+          this.#state = 'rejected'
+          this.#result = param;
+          this.#callRejectThen();
+        }
+      };
+      #callRejectThen = () => {
+        if (this.#node?.rejectThen) {
+          queueMicrotask(() => {
+            this.#node.rejectThen(this.#result);
+          });
+        } else {
+          throw new Error(this.#result);
+        }
+      };
+
+      constructor(f) {
+        try {
+          f(this.#resolve, this.#reject);
+        } catch (e) {
+          this.#reject(e);
+        }
+      }
+
+      then(resolveThen, rejectThen) {
+        let nextResolve, nextReject;
+        let promise = new MyPromise((resolve, reject) => {
+          nextResolve = resolve;
+          nextReject = reject;
+        });
+
+        this.#node = new MyPromiseNode(function (param) {
+          let result = resolveThen(param);
+
+          if (result instanceof MyPromise) {
+            result.then((param) => {
+              nextResolve(param);
+            });
+          } else {
+            nextResolve(result);
+          }
+        }, function (param) {
+          let result = rejectThen(param);
+
+          if (result instanceof MyPromise) {
+            result.catch((param) => {
+              nextReject(param);
+            });
+          } else {
+            nextReject(result);
+          }
+        }, promise);
+
+        if (this.#state === 'fulfilled') {
+          this.#callResolveThen();
+        }
+
+        this.catch(rejectThen);
+
+        return promise;
+      }
+
+      catch(rejectThen) {
+        this.#rejectThen = rejectThen;
+
+        if (this.#state === 'rejected') {
+          this.#callRejectThen();
+        }
+      }
+    }
+
+    sample(Promise);
+
+    setTimeout(() => {
+      sample(MyPromise);
+    }, 3000);
+
+
+
+    // function sample(SamplePromise) {
+    //   console.log(`${SamplePromise.name} : 1`);
+    //   let promise = new SamplePromise(function (resolve, reject) {
+    //     console.log(`${SamplePromise.name} : 2`);
+    //     setTimeout(() => {
+    //       console.log(`${SamplePromise.name} : 4`);
+    //       resolve(`${SamplePromise.name} resolve`);
+    //       console.log(`${SamplePromise.name} : 5`);
+    //     }, 1000);
+    //     console.log(`${SamplePromise.name} : 3`);
+    //   });
+    //   console.log(`${SamplePromise.name} : 6`);
+
+    //   promise.then(
+    //     (p) => {
+    //       console.log(`${SamplePromise.name} then1 : ${p}`);
+    //       return 2;
+    //     }
+    //   ).then(
+    //     (p) => {
+    //       console.log(`${SamplePromise.name} then2: ${p}`);
+    //     }
+    //   );
+    //   console.log(`${SamplePromise.name} : 7`);
+    // }
+
+    // class MyPromise {
+    //   #resolveThen = undefined;
+    //   #rejectThen = undefined;
+    //   #state = 'pending';
+    //   #result = undefined;
+    //   #resolve = (param) => {
+    //     if (this.#state === 'pending') {
+    //       this.#state = 'fulfilled'
+    //       this.#result = param;
+    //       this.#callResolveThen();
+    //     }
+    //   };
+    //   #callResolveThen = () => {
+    //     if (this.#resolveThen) {
+    //       queueMicrotask(() => {
+    //         this.#resolveThen(this.#result);
+    //       });
+    //     }
+    //   };
+    //   #reject = (param) => {
+    //     if (this.#state === 'pending') {
+    //       this.#state = 'rejected'
+    //       this.#result = param;
+    //       this.#callRejectThen();
+    //     }
+    //   };
+    //   #callRejectThen = () => {
+    //     if (this.#rejectThen) {
+    //       queueMicrotask(() => {
+    //         this.#rejectThen(this.#result);
+    //       });
+    //     } else {
+    //       throw new Error(this.#result);
+    //     }
+    //   };
+
+    //   constructor(f) {
+    //     try {
+    //       f(this.#resolve, this.#reject);
+    //     } catch (e) {
+    //       this.#reject(e);
+    //     }
+    //   }
+
+    //   then(resolveThen, rejectThen) {
+    //     this.#resolveThen = resolveThen ?? null;
+
+    //     if (this.#state === 'fulfilled') {
+    //       this.#callResolveThen();
+    //     }
+
+    //     this.catch(rejectThen);
+    //   }
+
+    //   catch(rejectThen) {
+    //     this.#rejectThen = rejectThen;
+
+    //     if (this.#state === 'rejected') {
+    //       this.#callRejectThen();
+    //     }
+    //   }
+    // }
+
+    // sample(Promise);
+
+    // setTimeout(() => {
+    //   sample(MyPromise);
+    // }, 3000);
+      
+  </script>
+
+
+</body>
+</html>
