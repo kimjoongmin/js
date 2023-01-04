@@ -6,14 +6,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <title>9장</title>
+  <style>
+    .member-wrap{border-top:2px solid #003399;}
+    .member-wrap table{width:100%;table-layout: fixed;border-collapse: collapse;}
+    .member-wrap table th,
+    .member-wrap table td{border:1px solid #ddd;border-top:0;text-align:center;}
+  </style>
 </head>
 <body>
-  <script>
+  <!-- 강의 -->
+  <div class="member-wrap member-wrap2">
+  </div>
+  <br>
+  <br>
+  <br>
+  <!-- 내꺼 -->
+  <div class="member-wrap">
+    <table>
+      <caption style="position:absolute;text-indent:-9999em;">멤버 id .....</caption>
+      <colgroup>
+        <col style="width:5%">
+        <col style="width:15%">
+        <col style="width:15%">
+        <col >
+        <col style="width:15%">
+        <col style="width:15%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">first_name</th>
+          <th scope="col">last_name</th>
+          <th scope="col">email</th>
+          <th scope="col">gender</th>
+          <th scope="col">ip_address</th>
+        </tr>  
+      </thead>
+      <tbody id="member">
+      </tbody>
+    </table>
+  </div>
 
+  <script>
+    $(function(){
+      $.ajax({
+        url : "./MOCK_DATA.json",
+        // type : "",
+        // data : "",
+        dataType : "json",
+        success : function(data){
+          console.log(data);
+
+          //강의 소스
+          let tableTag = $("<table />");
+          data.forEach(function(obj, idx){//데이터의 배열만큼 실행되도록 data.forEach
+            let trTag = $("<tr />");
+            let tdId = $("<td style='width:5%'/>").text(obj.id);
+            let tdFirstName = $("<td style='width:15%' />").text(obj.first_name);
+            let tdLastName = $("<td style='width:15%' />").text(obj.last_name);
+            let tdEmail = $("<td />").text(obj.email);
+            let tdGender = $("<td style='width:15%' />").text(obj.gender);
+            let tdIpAddress = $("<td style='width:15%' />").text(obj.ip_address);
+            trTag.append(tdId,tdFirstName,tdLastName,tdEmail,tdGender,tdIpAddress);
+            tableTag.append(trTag);
+          });
+          $(".member-wrap2").append(tableTag);
+
+          // 내 소스
+          // console.log(data);
+          data.forEach(function(obj, idx){//데이터의 배열만큼 실행되도록 data.forEach
+            let result = `<tr>
+                  <td>${obj.id}</td>  
+                  <td>${obj.first_name}</td>  
+                  <td>${obj.last_name}</td>  
+                  <td>${obj.email}</td>  
+                  <td>${obj.gender}</td>  
+                  <td>${obj.ip_address}</td>  
+                </tr>`
+                // "<tr>" + //템플릿 문자열 안될때
+                //   "<td>"+ obj.id + "</td>"   +
+                //   "<td>"+ obj.first_name + "</td>"   +
+                //   "<td>"+ obj.last_name + "</td>"   +
+                //   "<td>"+ obj.email + "</td>"   +
+                //   "<td>"+ obj.gender + "</td>"   +
+                //   "<td>"+ obj.ip_address + "</td>"   +
+                // "</tr>";
+            $("#member").append(result);
+            // let trTag = $("<tr />");
+            // let tdId = $("<td style='width:5%'/>").text(obj.id);
+            // let tdFirstName = $("<td style='width:15%' />").text(obj.first_name);
+            // let tdLastName = $("<td style='width:15%' />").text(obj.last_name);
+            // let tdEmail = $("<td />").text(obj.email);
+            // let tdGender = $("<td style='width:15%' />").text(obj.gender);
+            // let tdIpAddress = $("<td style='width:15%' />").text(obj.ip_address);
+            // trTag.append(tdId,tdFirstName,tdLastName,tdEmail,tdGender,tdIpAddress);
+            // tableTag.append(trTag);
+          });
+          // $(".member-wrap").append(tableTag);
+        },
+      })
+    });
 
   </script>
 
   <pre>
+    9장 제이쿼리 비동기 방식 연동
+    - Ajax : 비동기 방식으로 데이터를 전송하고, 요청하는 방식
+
+    $.ajax({ //객체로 전송, 속성과 값 
+      url : "전송페이지"(action url),
+      type : "전송 방식"(get, post 방식),
+      data : "전송할 데이터",
+      dataType : "요청한 데이터 타입"("html","xml","json","text","jsonp"),
+      success : function(data){
+        전송 성공하면 실행될 코드;
+      },
+      error : function(){
+        전송 실패하면 실행될 코드;
+      }
+    })
+
+    -자바스크립트 보안 정책 
+     :반드시 도메인이 존재해야함, 서로다른 도메인이면 데이터 전송 요청 안됨
 
   </pre>
 </body>

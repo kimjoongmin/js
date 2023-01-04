@@ -12,52 +12,6 @@
   </style>
 </head>
 <body>
-  <script>
-    $(function(){
-      $("body").css("background","yellow");
-
-      $(".btn1").click(function(){
-        $(".btn1").next().hide();
-        $(this).next().show();
-        return false;
-      });
-
-      $("button.btn").click(function(){
-        if($(this).text() == "숨김"){
-          $(this).text("노출");
-          // $(".wrap").animate({"opacity":"0"},500);
-          $(".wrap").slideUp(500);
-        } else {
-          $(this).text("숨김");
-          // $(".wrap").animate({"opacity":"1"},500);
-          $(".wrap").slideDown(500);
-        }
-        return false;
-      });
-
-      //애니메이션
-      var count = 1;
-      $(".ani button").click(function(){
-        if($(this).hasClass("back")){
-          count--;
-          if(count < 1){
-            count=1;
-            return;
-          }
-          $(".bar").stop(true,true).animate({"left":"-=10%"},500);
-        }else{
-          count++;
-          if(count > 10){
-            count=10;
-            return;
-          }
-          $(".bar").stop(true,true).animate({"left":"+=10%"},500);
-        }
-        console.log(count)
-      })
-    });
-
-  </script>
 
   <!-- 이벤트 -->
   <div class="btn1"><a href="#">이벤트대상1</a></div>
@@ -93,6 +47,57 @@
     <div class="bar"></div>
   </div>
 
+
+  <script>
+    $(function(){
+      $("body").css("background","yellow");
+
+      $(".btn1").click(function(){
+        $(".btn1").next().hide();
+        $(this).next().show();
+        return false;
+      });
+
+      $("button.btn").click(function(){
+        if($(this).text() == "숨김"){
+          // $(this).text("노출");
+          // $(".wrap").animate({"opacity":"0"},500);
+          $(".wrap").slideUp(500, function(){
+            $("button.btn").text("노출");
+          });
+        } else {
+          // $(this).text("숨김");
+          // $(".wrap").animate({"opacity":"1"},500);
+          $(".wrap").slideDown(500, function(){
+            $("button.btn").text("숨김");
+          });
+        }
+        return false;
+      });
+
+      //애니메이션
+      var count = 1;
+      $(".ani button").click(function(){
+        if($(this).hasClass("back")){
+          count--;
+          if(count < 1){
+            count=1;
+            return;
+          }
+          $(".bar").stop(true,true).animate({"left":"-=10%"},500);
+        }else{
+          count++;
+          if(count > 10){
+            count=10;
+            return;
+          }
+          $(".bar").stop(true,true).animate({"left":"+=10%"},500);
+        }
+        console.log(count)
+      })
+    });
+
+  </script>
 
   <pre>
     6장
