@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1장-5장</title>
+</head>
+<body>
+  
+  <script>
+    // 2장
+    let num1 = prompt("숫자를 입력하세요", 0);
+    let result = num1 % 2 == 0 ? "짝수" : "홀수" ;
+    console.log(result)
+
+    //switch
+    let game = "바위", 
+        num;
+    switch(game){
+      case "가위" : num = 1;
+        break;
+      case "바위" : num = 2;
+        break;
+      case "보" : num = 3;
+        break;
+      default : num = "error";
+    }
+    console.log("switch : " + num);
+
+    //while
+    let num2 = 1;
+    while(num2<=5){
+      console.log(num2)
+      num2++;
+    }
+
+    //내장 객체 생성
+    let car = new Object();
+    car.color = "white";
+    car.price = "1000만원";
+    car.getInfo = function(){
+      console.log("색상 : " + this.color);
+      console.log("가격 : " + this.price);
+    }
+    //리터럴 방식
+    let car2 = {
+      color : "white",
+      price : "1000만원",
+      getInfo : function(){
+        console.log("색상 : " + this.color);
+        console.log("가격 : " + this.price);
+      }
+    }
+    
+    //내장객체(날짜 정보 객체)
+    let today = new Date();
+    let y = today.getFullYear(); 
+    let m = today.getMonth();
+    let d = today.getDate();
+    let day = today.getDay();
+    let day2 = ["일","월","화","수","목","금","토"]
+    let resultDay = day2[day];
+    console.log(`
+    오늘 : ${today}
+    ${y}년 ${m + 1}월 ${d}일 ${resultDay}요일
+    `);
+
+    //수학객체
+    let num3 = 1.56;
+    Math.round(num3); //2 반올림
+    Math.floor(num3); //1 내림
+    Math.ceil(num3); //2 올림
+    Math.random(); //0~1 난수 발생
+
+    //문자객체
+    let str = "hello welcome";
+    console.log(str.charAt(6)); //w 
+    console.log(str.indexOf("w")); //6
+    console.log(str.lastIndexOf("e")); //12
+    console.log(str.indexOf("p"));  //-1
+
+    //배열객체
+    let arr1 = new Array("갑","을","병","정");
+    console.log(arr1[2]) //병
+
+    let arr2 = ["갑","을","병","정"]//리터럴 방식
+    console.log(arr2[1]) //병
+
+
+    //5장 함수
+    function greeting(name, area){
+      console.log(`Hello, ${name}`);
+      console.log(`Welcome to ${area}`);
+    }
+    greeting("김중민","USA");
+    greeting("Joongmin Kim","KOREA");
+
+    //스코프
+    var num2 = 500;
+    function fncTest(){
+      var num = 200;
+      console.log("지역변수 num " + num)//200
+      function innerFnc(){
+        console.log("내부함수 " + num)
+      }
+      innerFnc();//내부함수 실행됨
+    }
+    fncTest();
+    // console.log(num)//오류 num은 지역변수 스코프 안에서만 사용가능
+    console.log("전역변수 num2 " + num2)//500
+    // innerFnc(); //오류 내부함수는 외부에서 호출안됨
+
+    //return
+    function calc(no1,no2){
+      let result = no1 + no2;
+      return  console.log("no1 + no2 = " + result)
+    }
+    calc(100,200);
+
+    function calc2(no1,no2){
+      console.log("no1 + no2 = ");
+      return no1 + no2;
+      console.log("==== 함수 종료 ===="); // 수행되지 않음
+    }
+    let result2 = calc2(300,500);
+    console.log(result2);
+
+
+  </script>
+
+
+  <pre>
+    1장
+    -자바스크립트란?
+    -준비
+
+
+    2장
+    -자바스크립트 기초문법
+    -선언문
+    -주의점
+    -변수
+    -연산자
+    -간단 예제
+
+
+    3장
+    -제어문
+    -조건문(if,else,else if)
+    -선택문(switch)
+    -반복문(while,for)
+
+
+    4장
+    -객체(속성,메서드,하위객체)
+    -객체종류
+      -내장객체 : 자바스크립트 엔진에 객체를 생성할 수 있는 함수가 내장되어,
+                  필요한 경우 생성 사용
+                  
+                  1.참조변수 = new 객체 생성 함수();
+                  리터럴 방식 사용
+                  let car = {
+                    color = "white";
+                    getInfo = function(){
+                      console.log(this.color)
+                    }
+                  }
+
+                  2.날짜정보객체
+                  참조변수 = new Date();
+                  참조변수 = new Date("년/월/일");
+
+                  3.수학객체
+                  Math.메서드();
+                  Math.속성;
+
+                  4.문자객체
+                  참조변수 = new String("string");
+                  참조변수 = "string"; //리터럴 방식
+                  참조변수.메서드();
+                  참조변수.속성;
+
+                  5.배열객체
+                  참조변수 = new Array(값1,값2,값3);
+
+                  참조변수 = new Array();
+                  참조변수[0] = 값1;
+                  참조변수[1] = 값2;
+                  참조변수[2] = 값3;
+
+                  참조변수 = [값1,값2,값3]; //리터럴 방식
+
+                  참조변수[인덱스번호]
+
+      -브라우저객체 : 브라우저에 내장된 객체
+                      window
+                      - document : 문서 관련된 메서드 포함
+                      - screen : 화면 정보
+                      - location : 위치 정보 url 
+                      - history : 웹서핑 기록
+                      - navigator : os 브라우저 정보
+
+      -문서객체
+      -사용자정의객체
+       자세한 사항은 책으로~
+
+    5장
+    -함수
+
+      변수 - 데이터 저장공간, 선언할때 var 사용
+      함수 - 스크립트를 저장하는 공간, 선언할때 function 을 사용
+
+      *기본형
+      function 함수명 (){
+        스크립트 코드
+      }
+      함수명();
+
+      *익명함수
+      참조변수 = function(){
+        스크립트 코드
+      }
+      참조변수();
+
+      *매개변수
+      function 함수명(매개변수1, 매개변수2){
+        스크립트 코드;
+      }
+      함수명(값1,값2);
+    
+
+    -스코프
+      스코프란? 변수 또는 함수의 이용 가능한 유효 범위
+      지역변수? 스코프 영역에서 var를 붙여 선언된 변수를 가리키며, 스코프 영역내에서만 이용 가능
+      전역변수? 함수 밖에 선언된 변수
+      내부함수? 스코프 영역에서 선언된 함수를 가리키며, 스코프 영역 내에서만 호출
+
+
+    -return
+     함수내에서 사용 값을 반환하거나 함수를 강제 종료
+
+  </pre>
+
+</body>
+</html>

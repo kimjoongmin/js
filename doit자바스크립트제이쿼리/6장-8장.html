@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <title>6장-8장</title>
+  <style>
+    .progress{position:relative;width:500px;height:30px;margin-top:10px;border:1px solid #555;background:#fff;}
+    .bar{width:10%;height:30px;position:absolute;left:0;top:0;background:red;}
+  </style>
+</head>
+<body>
+  <script>
+    $(function(){
+      $("body").css("background","yellow");
+
+      $(".btn1").click(function(){
+        $(".btn1").next().hide();
+        $(this).next().show();
+        return false;
+      });
+
+      $("button.btn").click(function(){
+        if($(this).text() == "숨김"){
+          $(this).text("노출");
+          // $(".wrap").animate({"opacity":"0"},500);
+          $(".wrap").slideUp(500);
+        } else {
+          $(this).text("숨김");
+          // $(".wrap").animate({"opacity":"1"},500);
+          $(".wrap").slideDown(500);
+        }
+        return false;
+      });
+
+      //애니메이션
+      var count = 1;
+      $(".ani button").click(function(){
+        if($(this).hasClass("back")){
+          count--;
+          if(count < 1){
+            count=1;
+            return;
+          }
+          $(".bar").stop(true,true).animate({"left":"-=10%"},500);
+        }else{
+          count++;
+          if(count > 10){
+            count=10;
+            return;
+          }
+          $(".bar").stop(true,true).animate({"left":"+=10%"},500);
+        }
+        console.log(count)
+      })
+    });
+
+  </script>
+
+  <!-- 이벤트 -->
+  <div class="btn1"><a href="#">이벤트대상1</a></div>
+  <ul style="display:none;">
+    <li>리스트1</li>
+    <li>리스트2</li>
+    <li>리스트3</li>
+  </ul>
+  <div class="btn1"><a href="#">이벤트대상2</a></div>
+  <ul style="display:none;">
+    <li>리스트4</li>
+    <li>리스트5</li>
+    <li>리스트6</li>
+  </ul>
+
+
+  <!-- 효과메서드 -->
+  <div class="btnWrap">
+    <button class="btn">숨김</button>
+  </div>
+  <div class="wrap">
+    <p class="txt">내용1</p>
+    <p class="txt">내용2</p>
+  </div>
+
+
+  <!-- 애니메이션 -->
+  <div class="ani">
+    <button class="back">Back</button>
+    <button class="go">Go</button>
+  </div>
+  <div class="progress">
+    <div class="bar"></div>
+  </div>
+
+
+  <pre>
+    6장
+    -제이쿼리 : 자바스크립트 라이브러리 언어
+                jquery.com/download 
+                cdnjs.com
+
+    -선택자 : 선택자는 html 요소를 선택하여 가져옴
+      $(function(){
+        $("선택자").css("속성","값");
+      })
+
+      -기본 선택자 : 직접선택자, 간접선택자
+      -탐색 선택자 : 위치선택자, 속성선택자
+      -객체 조작 : 선택한 요소를 삭제, 생성, 복제, 속성변경
+
+    -DOM(Document Object Model) : html 문서 객체 구조를 말합니다
+
+
+    7장
+    -이벤트 : 사이트에서 방문자가 취하는 모든 동작
+    -핸들러 : 이벤트가 발생했을 때 호출되는 함수
+    
+      -이벤트 대상 : 버튼1,버튼2
+      -이벤트 종류 : click, mouseover
+      -이벤트 핸들러 : 경고창
+
+    
+
+    8장
+    -효과 및 애니메이션
+
+    -효과 메서드
+      $(요소선택).효과 메서드(효과 소요 시간, 가속도, 콜백함수);
+    -애니메이션 사용법
+      $(요소선택).animate({애니메이션에 적용할 속성과 값}, 가속도, 콜백함수);
+
+  </pre>
+</body>
+</html>
