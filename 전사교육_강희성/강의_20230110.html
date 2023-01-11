@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todolist</title>
+</head>
+
+<body>
+  <div id="list" style="width:200px;border:1px solid black;"></div>
+  <input type="text" id="text">
+  <button id="add">추가</button>
+  <button id="js">jsTodo</button>
+  <button id="java">javaTodo</button>
+
+  <script>
+    class Todo {
+      static get NONE() { return 0; }
+      static get COMPLETED() { return 9; }
+      static #count = 0;
+      static #generateId() {
+        return ++Todo.#count;
+      }
+
+      text;
+      #status;
+      #id;
+      #todoListId;
+
+      constructor(todoListId, text, status) {
+        this.#todoListId = todoListId;
+        this.#id = Todo.#generateId();
+        this.text = text;
+        this.#status = status;
+      }
+
+      set status(newStatus) {
+        switch (newStatus) {
+          case Todo.NONE: break;
+          case Todo.COMPLETED: break;
+          default: throw new Error('상태 좀 보고 넣읍시다.');
+        }
+
+        this.#status = newStatus;
+      }
+
+      get status() {
+        return this.#status;
+      }
+
+      get id() {
+        return this.#id;
+      }
+    }
+
+    class TodoList {
+      #id;
+      #todoList;
+
+      constructor(id) {
+        this.#id = id;
+        this.#todoList = [];
+      }
+
+      get id() { return this.#id; }
+
+      filter(f) {
+        if (f) {
+          return this.#todoList.filter(f);
+        } else {
+          return this.#todoList.filter(() => true);
+        }
+      }
+
+      *filterPage(f, pageSize) {
+        let list = this.filter(f);
+
+        for (let s = 0; s < list.length; s += pageSize) {
+          yield list.slice(s, s + pageSize);
+        }
+      }
+
+      statusCount(status) {
+        let list = this.filter((e) => e.status === status);
+        return list?.length ?? 0;
+      }
+
+      get list() {
+        return this.#todoList;
+      }
+
+      item(todoId) {
+        let index = this.#todoList.findIndex((e) => e.id === todoId);
+
+        if (0 <= index) {
+          return this.#todoList[index];
+        } else {
+          return undefined;
+        }
+      }
+
+      add(todo) {
+        if (!(todo instanceof Todo)) {
+          todo = new Todo(this.#id, todo, Todo.NONE);
+        }
+
+        this.#todoList.push(todo);
+
+        this.onAfterAdd?.(todo);
+      }
+
+      remove(todoId) {
+        let index = this.#todoList.findIndex((e) => e.id === todoId);
+        let target;
+
+        if (0 <= index) {
+          target = this.#todoList[index];
+          this.#todoList.splice(index, 1);
+        } else {
+          throw new Error('지울게 없어요');
+        }
+
+        this.onAfterRemove?.(target);
+      }
+
+      edit(todoId, text) {
+        let index = this.#todoList.findIndex((e) => e.id === todoId);
+        let oldTarget = {}, newTarget;
+
+        if (0 <= index) {
+          newTarget = this.#todoList[index];
+          Object.assign(oldTarget, newTarget)
+          newTarget.text = text;
+        } else {
+          throw new Error('수정할게 없어요');
+        }
+
+        this.onAfterEdit?.(oldTarget, newTarget);
+      }
+
+      changeStatus(todoId, status) {
+        let index = this.#todoList.findIndex((e) => e.id === todoId);
+        let oldTarget = {}, newTarget;
+
+        if (0 <= index) {
+          newTarget = this.#todoList[index];
+          Object.assign(oldTarget, newTarget)
+          newTarget.status = status;
+        } else {
+          throw new Error('상태 변경할게 없어요');
+        }
+
+        this.onAfterEdit?.(oldTarget, newTarget);
+      }
+
+      onAfterAdd;
+      onAfterRemove;
+      onAfterEdit;
+      onAfterchangeStatus;
+    }
+
+    let todoList = new TodoList('js교육');
+    todoList.onAfterAdd = (a) => {
+      console.log(a);
+    }
+    todoList.onAfterRemove = (a) => {
+      console.log(a);
+    }
+    todoList.onAfterEdit = (b, a) => {
+      console.log('#################');
+      console.log(b, a);
+      console.log('#################');
+    }
+    todoList.onAfterchangeStatus = (b, a) => {
+      console.log(b, a);
+    }
+    todoList.add(new Todo(todoList.id, '공부하자', Todo.COMPLETED));
+    todoList.add('공부하자1');
+    todoList.add('공부하자2');
+    todoList.add('공부하자3');
+    todoList.add('공부하자4');
+    todoList.add('공부하자5');
+    todoList.add('공부하자26');
+    todoList.edit(5, '공부하자5번고침');
+
+    let todoList1 = new TodoList('java교육');
+    todoList1.onAfterAdd = (a) => {
+      console.log(a);
+    }
+    todoList1.onAfterRemove = (a) => {
+      console.log(a);
+    }
+    todoList1.onAfterEdit = (b, a) => {
+      console.log('#################');
+      console.log(b, a);
+      console.log('#################');
+    }
+    todoList1.onAfterchangeStatus = (b, a) => {
+      console.log(b, a);
+    }
+    todoList1.add(new Todo(todoList1.id, '공부하자', Todo.COMPLETED));
+    todoList1.add('java 공부하자1');
+    todoList1.add('java 공부하자2');
+    todoList1.add('java 공부하자3');
+    todoList1.add('java 공부하자4');
+    todoList1.add('java 공부하자5');
+    todoList1.add('java 공부하자26');
+    todoList1.edit(10, 'java 공부하자5번고침');
+
+    class TodoListView {
+      #todoList;
+      listElement;
+      addButtonElement;
+      inputElement;
+
+      constructor(todoList) {
+        this.#todoList = todoList;
+        this.listElement = document.getElementById('list');
+        this.addButtonElement = document.getElementById('add');
+        this.inputElement = document.getElementById('text');
+
+        this.addButtonElement.addEventListener('click', (e) => {
+          this.#todoList.add(this.inputElement.value);
+          this.refresh();
+        });
+
+        this.refresh();
+      }
+
+      refresh() {
+        let html = '<ul>';
+        this.#todoList.filter().forEach((e) => {
+          html += '<li>' + e.text + '-' + e.status + '</li>';
+        });
+        html += '</ul>'
+        this.listElement.innerHTML = html;
+      }
+    }
+
+    new TodoListView(todoList);
+
+    let jsElement = document.getElementById('js');
+    let javaElement = document.getElementById('java');
+
+    jsElement.addEventListener('click', (e) => {
+      new TodoListView(todoList);
+    });
+
+    javaElement.addEventListener('click', (e) => {
+      new TodoListView(todoList1);
+    });
+  </script>
+
+
+
+  <pre>
+    개발 : 의존성을 줄여라~
+    목록조회
+    추가
+    수정
+    삭제
+    todo상태변경
+    상태변경 이벤트
+
+
+    고민 말고 클래스
+    뼈대 만들기
+
+    list?.length??0;
+
+  </pre>
+
+  <!-- <form class="toDoForm">
+    <input type="text" class="toDoInput">
+  </form>
+
+  <ul class="toDoList"></ul> -->
+
+  <script>
+    // const toDoForm = document.querySelector("toDoForm");
+    // const toDoInput = document.querySelector("toDoInput");
+    // const toDoList = document.querySelector("toDoList");
+
+    class Todo {
+      constructor(work, state) {
+        this.work = work;
+        this.state = state;
+      }
+      change() {
+        this.state = 변경;
+      }
+    }
+
+    const toDoList = new Todo();
+
+
+  </script>
+</body>
+
+</html>

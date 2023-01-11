@@ -54,6 +54,64 @@
 
 
 
+async 하나 쓰면 문제 없으나
+두개 이상 쓰면 시점(동기 비동기) 에 문제 발생
+
+async 밖에 비동기 실행이 있으면 다음 순서에 양보한다
+
+
+promise 
+async 
+같은 순서에 있어야함  
+async 로 감싸서 await 으로 실행해야 해결 
+
+
+
+
+
+
+
+20230115
+
+async function af(p) {
+    console.log(p+'af');
+    return 1;
+}
+
+function  st(p) {
+    return new Promise((resolve)=>{
+        console.log('st inner');
+        setTimeout(()=>{
+            console.log(p + 'st1');
+            resolve('st_st');
+            console.log(p + 'st2');
+        }, 1000);
+    });
+}
+
+function f() {
+    console.log('f');
+}
+
+async function t(p) {
+    console.log(p+'t1');
+    await st(p); //af(p);
+    console.log(p+'t2');
+    await st(p); //af(p);
+    console.log(p+'t3');
+}
+/*
+(async function() {
+    await t('A');
+    await t('B');
+})();
+
+console.log(1);
+*/
+
+console.log(1);
+t('A');
+
 
 
 

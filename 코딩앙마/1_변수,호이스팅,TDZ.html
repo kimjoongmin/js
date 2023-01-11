@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>변수_호이스팅_TDZ</title>
 </head>
+
 <body>
   <pre>
     변수 
@@ -105,24 +107,47 @@
     console.log(name);
     name = 'Mike';
 
-    let age =30;
-    function showAge (){
+    let age = 30;
+    function showAge() {
       console.log(age);
       // let age = 20;//error 호이스팅을 이르킴
     }
     showAge();
 
-    function add(num1,num2){
+    function add(num1, num2) {
       return num1 + num2;
     }
-    const result = add(2,5);
+    const result = add(2, 5);
     console.log(result);
 
-    function add2(num3,num4){
+    function add2(num3, num4) {
       var result2 = num3 + num4;
     }
-    add2(2,3);
-    console.log(result2); // 함수 스코프 var 값을 못가져옴
+    add2(2, 3);
+    console.log(result2); // 함수 스코프. var 값을 못가져옴
+  </script>
+
+
+
+  <ul>
+    <li>orange</li>
+    <li>apple</li>
+    <li>banana</li>
+    <li>strawberry</li>
+  </ul>
+
+  <script>
+    function print() {
+      let list = document.querySelectorAll("li")
+      let listArray = Array.from(list)
+      // let result = listArray.filter(fruit => fruit.includes('e'))
+      let resultArray = listArray.filter(function (v) {
+        return v.innerText.includes("e") //도메인에서 뽑아내는 innerText
+      });
+      console.log(resultArray.length);
+    }
+    print();
   </script>
 </body>
+
 </html>

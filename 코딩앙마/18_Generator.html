@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>generator</title>
+</head>
+<body>
+  <script>
+    function* fn(){
+      console.log("console : 1")
+      yield 1;
+      console.log("console : 2")
+      yield 2;
+      console.log("console : 3")
+      console.log("console : 4")
+      yield 3;
+      return "finish";
+    }
+    const a = fn();
+
+    //즉 generator a 의 Symbol.iterator를 실행한 값이 자기 자신!
+    //즉 generator는 iterable 객체인 것
+    //a[Symbol.iterator]() === a; 
+
+    //문자열도 iterable 
+
+
+    //배열은 prototype에 Symbol.iterator이 있다
+    const arr = [1,2,3,4,5];
+    //it에 arr가 가지고 있는 symbol.iterator 메서드를 실행한 값을 넣는다
+    const it = arr[Symbol.iterator](); 
+    //it.next(); 콘솔에 실행
+    //{value: 1, done: false} ....
+    //배열은 Symbol.iterator 메서드를 가지고 있고 이 메서드가 반환하는 값이 iterator 이므로 iterable 하다고 할수 있음
+    //즉 배열은 반복 가능한 객체
+    //iterable은 for of를 이용해 순회할수 있다
+    for(let x of arr){
+      console.log(x)
+    }
+    //다시 위로(generator설명)
+
+
+
+  </script>
+
+  <pre>
+    generator : 함수의 실행을 중간에 멈췄다가 재개할 수 있는 기능
+                값을 미리 만들어 두지 않음
+
+     -iterable : 반복이 가능하다는 의미
+                  조건이 있어야하는데 Symbol.iterator 메서드가 구현되어있어야함
+                  Symbol.iterator는 iterator를 반환해야한다
+     -iterator : iterable 메서드를 호출한 결과
+                  next 메서드를 가진다. 
+                  next 메서드는 value와 done 속성을 가진 객체를 반환한다.
+                  작업이 끝나면 done은 true가 된다
+
+      //배열은 prototype에 Symbol.iterator이 있다
+      const arr = [1,2,3,4,5];
+      //it에 arr가 가지고 있는 symbol.iterator 메서드를 실행한 값을 넣는다
+      const it = arr[Symbol.iterator](); 
+      //it.next(); 콘솔에 실행
+      //{value: 1, done: false} ....
+      //배열은 Symbol.iterator 메서드를 가지고 있고 이 메서드가 반환하는 값이 iterator 이므로 iterable 하다고 할수 있음
+
+
+    function* fn(){
+      yield 1;
+      yield 2;
+      yield 3;
+      return "finish";
+    }
+    const a = fn();
+    
+    function* fn(){
+      yield 1;
+      yield 2;
+      yield 3;
+      return "finish";
+    }
+    const a = fn(); 
+    
+    generator 객체를 반환
+
+    -next(), retrun(), throw() 
+
+    function* fn(){
+      console.log(1);
+      yield 1;fgd
+      console.log(2);
+      yield 2;
+      console.log(3);
+      console.log(4);
+      yield 3;
+      return "finish";
+    }
+    const a = fn();
+    
+    -a.next();
+    {value = 1, done: false}
+    yield 옆 값, 다음이 있으면 false generator가 끝나면 true 
+
+      a.next()에 인수 전달
+
+    -a.return("END"); // 그 즉시 반환
+    {value:"END", done:true}
+
+    -throw 예제 try catch 문으로 감쌈
+    function* fn(){
+      try{
+        console.log(1);
+        yield 1;
+        console.log(2);
+        yield 2;
+        console.log(3);
+        console.log(4);
+        yield 3;
+        return "finish";
+      }catch(e){
+        console.log(e);
+      }
+    }
+    const a = fn();
+
+    -a.throw(new Error("error"));
+
+
+    제너레이터는 함수의 실행을 중간에 멈췄다가 재개할 수 있는 독특한 기능입니다.
+    function 옆에 * 을 써서 만들고, 내부에 yield 키워드를 사용합니다.
+    yield 에서 함수의 실행을 멈출 수 있습니다.
+
+    iterable
+    - Symbol.iterator 메서드가 있다.
+    - Symbol.iterator 는 iterator 를 반환해야 한다.
+
+    iterator
+    - next 메서드를 가진다.
+    - next 메서드는 value 와 done 속성을 가진 객체를 반환한다.
+    - 작업이 끝나면 done 은 true 가 된다.
+
+
+  </pre>
+</body>
+</html>
